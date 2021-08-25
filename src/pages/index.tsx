@@ -1,21 +1,15 @@
 import { Box, Button, Heading } from '@chakra-ui/react';
+import { Editor } from '@modules/editor';
 import type { NextPage } from 'next';
-import dynamic from 'next/dynamic';
-
-const Editor = dynamic(
-  //@ts-ignore
-  () => import('@modules/editor/index').then((module) => module.Editor),
-  {
-    ssr: false,
-  }
-);
 
 const Home: NextPage = () => {
   return (
     <Box>
       <Heading>Hello</Heading>
 
-      <Editor />
+      <Box w="500px">
+        <Editor />
+      </Box>
 
       <Button>Submit</Button>
     </Box>

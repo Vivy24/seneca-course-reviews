@@ -6,6 +6,7 @@ import {
   Transforms,
 } from 'slate';
 
+//#region Constants
 const LIST_TYPES: BlockFormat[] = ['list-ol', 'list-ul'];
 
 export const MARK_HOTKEYS: Record<string, MarkFormat> = {
@@ -19,6 +20,7 @@ export const BLOCK_HOTKEYS: Record<string, BlockFormat> = {
   'mod+1': 'h1',
   'mod+2': 'h2',
 };
+//#endregion
 
 //#region Blocks
 export const toggleBlock = (editor: Editor, format: BlockFormat) => {
@@ -35,6 +37,7 @@ export const toggleBlock = (editor: Editor, format: BlockFormat) => {
     },
     split: true,
   });
+
   const newProperties: Partial<SlateElement> = {
     type: isActive ? 'paragraph' : isList ? 'list-item' : format,
   };
@@ -66,6 +69,16 @@ export const isMarkActive = (editor: Editor, format: MarkFormat) => {
   }
 
   return false;
+};
+
+export const removeAllMarks = (editor: Editor) => {
+  const marks = Editor.marks(editor);
+
+  if (marks) {
+    for (const key in marks) {
+      Editor.removeMark(editor, key);
+    }
+  }
 };
 
 export const toggleMark = (editor: Editor, format: MarkFormat) => {

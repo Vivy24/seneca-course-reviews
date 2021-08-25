@@ -1,6 +1,7 @@
-import { ButtonGroup, Flex } from '@chakra-ui/react';
+import { ButtonGroup, Flex, IconButton } from '@chakra-ui/react';
 import isHotkey from 'is-hotkey';
 import React, { KeyboardEventHandler, useCallback, useState } from 'react';
+import { FaTrash } from 'react-icons/fa';
 import { createEditor, Descendant, Element } from 'slate';
 import { withHistory } from 'slate-history';
 import { Editable, Slate, withReact } from 'slate-react';
@@ -8,6 +9,7 @@ import BlockButton from './BlockButton';
 import {
   BLOCK_HOTKEYS,
   MARK_HOTKEYS,
+  removeAllMarks,
   toggleBlock,
   toggleMark,
 } from './editor-utils';
@@ -22,6 +24,10 @@ function Editor() {
   const [editor] = useState(() => withHistory(withReact(createEditor())));
 
   const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
+    if (event.key === 'Enter') {
+      removeAllMarks(editor);
+    }
+
     for (const hotkey in MARK_HOTKEYS) {
       if (isHotkey(hotkey, event)) {
         event.preventDefault();
@@ -44,12 +50,17 @@ function Editor() {
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       {/* <Toolbar> */}
-      <Flex gridGap={1} py={5} px={3} borderBottom={'1px'}>
+      <Flex gridGap={1} py={5} borderBottom={'1px'}>
         <ButtonGroup colorScheme="gray" isAttached>
           <MarkButton format="bold" />
           <MarkButton format="italic" />
           <MarkButton format="underline" />
           <MarkButton format="code" />
+          <IconButton
+            aria-label="Clear format"
+            icon={<FaTrash />}
+            onClick={() => removeAllMarks(editor)}
+          />
         </ButtonGroup>
 
         <ButtonGroup isAttached colorScheme="gray">
