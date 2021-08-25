@@ -1,10 +1,8 @@
-import { ButtonGroup, Flex, IconButton } from '@chakra-ui/react';
+import { Box, ButtonGroup, Flex, IconButton } from '@chakra-ui/react';
 import isHotkey from 'is-hotkey';
-import React, { KeyboardEventHandler, useCallback, useState } from 'react';
+import React, { KeyboardEventHandler, useCallback } from 'react';
 import { FaTrash } from 'react-icons/fa';
-import { createEditor, Descendant, Element } from 'slate';
-import { withHistory } from 'slate-history';
-import { Editable, Slate, withReact } from 'slate-react';
+import { Editable, useSlate } from 'slate-react';
 import BlockButton from './BlockButton';
 import {
   BLOCK_HOTKEYS,
@@ -18,10 +16,9 @@ import { renderLeaf } from './EditorLeaf';
 import MarkButton from './MarkButton';
 
 function Editor() {
-  const [value, setValue] = useState<Descendant[]>(initialValue);
   const memoRenderElement = useCallback(renderElement, []);
   const memoRenderLeaf = useCallback(renderLeaf, []);
-  const [editor] = useState(() => withHistory(withReact(createEditor())));
+  const editor = useSlate();
 
   const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
     if (event.key === 'Enter') {
@@ -48,9 +45,17 @@ function Editor() {
   };
 
   return (
-    <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
+    <Box position="relative">
       {/* <Toolbar> */}
-      <Flex gridGap={1} py={5} borderBottom={'1px'}>
+      <Flex
+        position="sticky"
+        top="0"
+        gridGap={1}
+        p={5}
+        shadow="sm"
+        bg="white"
+        zIndex="sticky"
+      >
         <ButtonGroup colorScheme="gray" isAttached>
           <MarkButton format="bold" />
           <MarkButton format="italic" />
@@ -72,23 +77,19 @@ function Editor() {
         </ButtonGroup>
       </Flex>
       {/* </Toolbar> */}
-      <Editable
-        renderElement={memoRenderElement}
-        renderLeaf={memoRenderLeaf}
-        placeholder="Enter some rich text…"
-        spellCheck
-        autoFocus
-        onKeyDown={handleKeyDown}
-      />
-    </Slate>
+
+      <Box p={5}>
+        <Editable
+          renderElement={memoRenderElement}
+          renderLeaf={memoRenderLeaf}
+          placeholder="Enter some rich text…"
+          spellCheck
+          autoFocus
+          onKeyDown={handleKeyDown}
+        />
+      </Box>
+    </Box>
   );
 }
-
-const initialValue: Element[] = [
-  {
-    type: 'paragraph',
-    children: [{ text: 'Edit ' }],
-  },
-];
 
 export default Editor;
