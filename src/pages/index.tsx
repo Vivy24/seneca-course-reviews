@@ -1,3 +1,5 @@
+import { CourseReviews_Index_PostBody } from '@api/course-review';
+import { CourseReviews_Index_GetData } from '@api/course-reviews';
 import { Box, Button, Heading } from '@chakra-ui/react';
 import { Editor } from '@modules/editor';
 import { useEditor } from '@modules/editor/useEditor';
@@ -8,8 +10,20 @@ import { Slate } from 'slate-react';
 const Home: NextPage = () => {
   const slateProps = useEditor();
 
-  const handleSaveButtonClick = () => {
-    axios.post('/api/course', slateProps.value).catch(console.error);
+  const handleSaveButtonClick = async () => {
+    const data: CourseReviews_Index_PostBody = {
+      _submittedAt: new Date().toISOString(),
+      _type: 'course',
+      courseId: 'uli101',
+      body: slateProps.value,
+      isRecommended: true,
+      rating: 5,
+      professorIdList: [],
+    };
+
+    await axios.post('/api/course-review', data);
+
+    await axios.get<CourseReviews_Index_GetData>('/api/course-reviews');
   };
 
   return (
@@ -28,4 +42,5 @@ const Home: NextPage = () => {
     </Box>
   );
 };
+
 export default Home;

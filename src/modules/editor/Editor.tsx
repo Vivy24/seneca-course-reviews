@@ -66,9 +66,7 @@ function Editor() {
             icon={<FaTrash />}
             onClick={() => removeAllMarks(editor)}
           />
-        </ButtonGroup>
 
-        <ButtonGroup isAttached colorScheme="gray">
           <BlockButton format="h1" />
           <BlockButton format="h2" />
           <BlockButton format="block-quote" />
