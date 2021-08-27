@@ -1,44 +1,30 @@
-import { CourseReviews_Index_PostBody } from '@api/course-review';
-import { CourseReviews_Index_GetData } from '@api/course-reviews';
-import { Box, Button, Heading } from '@chakra-ui/react';
-import { Editor } from '@modules/editor';
-import { useEditor } from '@modules/editor/useEditor';
-import axios from 'axios';
+import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import type { NextPage } from 'next';
-import { Slate } from 'slate-react';
+import Head from 'next/head';
+import NextLink from 'next/link';
 
 const Home: NextPage = () => {
-  const slateProps = useEditor();
-
-  const handleSaveButtonClick = async () => {
-    const data: CourseReviews_Index_PostBody = {
-      _submittedAt: new Date().toISOString(),
-      _type: 'course',
-      courseId: 'uli101',
-      body: slateProps.value,
-      isRecommended: true,
-      rating: 5,
-      professorIdList: [],
-    };
-
-    await axios.post('/api/course-review', data);
-
-    await axios.get<CourseReviews_Index_GetData>('/api/course-reviews');
-  };
-
   return (
-    <Box mx="auto" w="max-content">
-      <Heading size="4xl">Slate editor</Heading>
+    <Box mt="10">
+      <Head>
+        <title>Seneca ICT</title>
+      </Head>
 
-      <Box w="60ch" shadow="lg" rounded="base" mt={5} h="md" overflowY="auto">
-        <Slate {...slateProps}>
-          <Editor />
-        </Slate>
-      </Box>
+      <Heading as="h1" size="4xl">
+        Seneca ICT reviews
+      </Heading>
 
-      <Button mt={5} onClick={handleSaveButtonClick}>
-        Save
-      </Button>
+      <Flex gridGap="2" mt="5">
+        <NextLink href="/course-review/add" passHref>
+          <Button as="a">Review a course</Button>
+        </NextLink>
+
+        <NextLink href="/professor-review/add" passHref>
+          <Button variant="outline" as="a">
+            Review a professor
+          </Button>
+        </NextLink>
+      </Flex>
     </Box>
   );
 };
