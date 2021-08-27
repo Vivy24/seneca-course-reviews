@@ -1,3 +1,4 @@
+import { Course_Index_PostBody } from '@api/course';
 import {
   Button,
   Flex,
@@ -10,6 +11,7 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import FieldRequiredSymbol from 'src/ui/FieldRequiredSymbol';
@@ -30,8 +32,8 @@ export function AddCourseForm() {
     },
   });
 
-  const onSubmit = handleSubmit((data) => {
-    console.log({ data });
+  const onSubmit = handleSubmit(async (data) => {
+    await axios.post('/api/course', data as Course_Index_PostBody);
   });
 
   return (

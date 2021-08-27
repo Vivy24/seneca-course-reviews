@@ -14,7 +14,7 @@ async function post(
 ) {
   await CourseReviewService.addReview(req.body);
 
-  return res.status(200).json(ResultOk());
+  return res.status(201).json(ResultOk());
 }
 
 export default withApiHandler({ post });
