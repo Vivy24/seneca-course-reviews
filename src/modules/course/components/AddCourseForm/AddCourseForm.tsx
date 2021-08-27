@@ -17,7 +17,7 @@ import axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FaBan, FaCheckCircle } from 'react-icons/fa';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import FieldRequiredSymbol from 'src/ui/FieldRequiredSymbol';
 import {
   addCourseFormSchema,
@@ -25,9 +25,12 @@ import {
 } from './add-course-form-schema';
 
 export function AddCourseForm() {
+  const queryClient = useQueryClient();
   const {
     handleSubmit,
     register,
+    reset,
+    watch,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<AddCourseFormValues>({
     resolver: zodResolver(addCourseFormSchema),
@@ -36,10 +39,16 @@ export function AddCourseForm() {
     },
   });
 
+  const courseId = watch('courseId');
+
   const mutation: MutationHandleSubmit = useMutation(
     handleSubmit(async (data) => {
       await axios.post('/api/course', data as Course_Index_PostBody);
-    })
+    }),
+    {
+      mutationKey: 'add-course',
+      onSuccess: () => queryClient.invalidateQueries('courses'),
+    }
   );
 
   return (
@@ -111,7 +120,7 @@ export function AddCourseForm() {
 
       {isSubmitSuccessful && (
         <Flex gridGap="1" color="green" alignItems="center">
-          <FaCheckCircle /> New course added
+          <FaCheckCircle /> New course added successfully
         </Flex>
       )}
     </Flex>

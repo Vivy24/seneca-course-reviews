@@ -1,7 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { Course, CourseService } from '@modules/course';
+import { Course } from '@modules/course';
+import { CourseService } from '@modules/course/server-index';
 import { ResultSuccess } from '@utils/api-utils';
 import type { NextApiRequest, NextApiResponse } from 'next';
 

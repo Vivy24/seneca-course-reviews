@@ -1,5 +1,5 @@
 import { firestore } from 'src/lib/firebase/firebase';
-import { Course } from './Course';
+import { Course } from '../Course';
 
 const collectionRef = firestore.collection('course');
 
