@@ -1,4 +1,6 @@
 declare module '@common' {
+  import { AxiosError } from 'axios';
+
   type HasMessage = { message: string };
   type TResultError = {
     type: 'error';
@@ -13,4 +15,6 @@ declare module '@common' {
   };
 
   type TResult<Data = unknown> = TResultSuccess<Data> | TResultError;
+
+  type ApiError = AxiosError<TResultError>;
 }

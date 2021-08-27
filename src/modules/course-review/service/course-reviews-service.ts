@@ -1,5 +1,5 @@
-import { firestore } from 'src/lib/firebase/firebase';
-import { CourseReview } from './Review';
+import { firestore } from '@lib/firebase/firebase';
+import { CourseReview } from '../CourseReview';
 
 const collectionRef = firestore.collection('courseReviews');
 

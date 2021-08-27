@@ -1,7 +1,7 @@
 import { HasMessage, TResult } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { CourseReviewService } from '@modules/review/course-reviews-service';
-import { CourseReview } from '@modules/review/Review';
+import { CourseReview } from '@modules/course-review';
+import { CourseReviewService } from '@modules/course-review/server-index';
 import { ResultOk } from '@utils/api-utils';
 import { NextApiRequest, NextApiResponse } from 'next';
 

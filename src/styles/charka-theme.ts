@@ -22,6 +22,9 @@ const theme = {
         'WebkitFontSmoothing?': 'antialiased',
         'MozOsxFontSmoothing?': 'grayscale',
       },
+      '*': {
+        borderColor: 'gray.200',
+      },
     },
   },
 };

@@ -12,6 +12,12 @@ export class CourseService {
     return snapshot.data() as Course;
   }
 
+  static async getAllCourses(): Promise<Course[]> {
+    const snapshot = await collectionRef.get();
+
+    return snapshot.docs.map((doc) => doc.data() as Course);
+  }
+
   static async isCourseExist(courseId: string): Promise<boolean> {
     const course = await this.getCourse(courseId);
 
