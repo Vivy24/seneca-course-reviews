@@ -16,11 +16,13 @@ const Home: NextPage = () => {
 
       <Flex gridGap="2" mt="5">
         <NextLink href="/course-review/add" passHref>
-          <Button as="a">Review a course</Button>
+          <Button size="lg" as="a">
+            Review a course
+          </Button>
         </NextLink>
 
         <NextLink href="/professor-review/add" passHref>
-          <Button variant="outline" as="a">
+          <Button size="lg" variant="outline" as="a">
             Review a professor
           </Button>
         </NextLink>

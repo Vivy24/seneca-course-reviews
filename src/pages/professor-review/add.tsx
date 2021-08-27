@@ -5,7 +5,7 @@ function ProfessorReviewAddPage() {
   return (
     <div>
       <GoBackButton />
-      Add professor
+      Add a new professor review
     </div>
   );
 }

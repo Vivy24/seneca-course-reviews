@@ -16,10 +16,11 @@
     "downlevelIteration": true,
     "baseUrl": ".",
     "paths": {
+      "@modules/*": ["src/modules/*"],
       "@styles/*": ["src/styles/*"],
       "@lib/*": ["src/lib/*"],
       "@utils/*": ["src/utils/*"],
-      "@modules/*": ["src/modules/*"],
+
       "@api/*": ["src/pages/api/*"]
     }
   },
