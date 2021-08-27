@@ -3,7 +3,7 @@ import { AddCourseReviewForm } from '@modules/course-review';
 import React from 'react';
 import GoBackButton from 'src/ui/GoBackButton';
 
-function add() {
+function CourseReviewAddPage() {
   return (
     <Box>
       <Box as="header">
@@ -21,4 +21,4 @@ function add() {
   );
 }
 
-export default add;
+export default CourseReviewAddPage;
