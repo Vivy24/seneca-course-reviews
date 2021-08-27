@@ -11,9 +11,13 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { MutationHandleSubmit } from '@utilities';
+import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { FaBan, FaCheckCircle } from 'react-icons/fa';
+import { useMutation } from 'react-query';
 import FieldRequiredSymbol from 'src/ui/FieldRequiredSymbol';
 import {
   addCourseFormSchema,
@@ -24,7 +28,7 @@ export function AddCourseForm() {
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<AddCourseFormValues>({
     resolver: zodResolver(addCourseFormSchema),
     defaultValues: {
@@ -32,14 +36,16 @@ export function AddCourseForm() {
     },
   });
 
-  const onSubmit = handleSubmit(async (data) => {
-    await axios.post('/api/course', data as Course_Index_PostBody);
-  });
+  const mutation: MutationHandleSubmit = useMutation(
+    handleSubmit(async (data) => {
+      await axios.post('/api/course', data as Course_Index_PostBody);
+    })
+  );
 
   return (
     <Flex
       as="form"
-      onSubmit={onSubmit}
+      onSubmit={mutation.mutate}
       noValidate
       direction="column"
       gridGap="5"
@@ -97,6 +103,18 @@ export function AddCourseForm() {
       >
         Submit
       </Button>
+
+      {mutation.error && (
+        <Flex gridGap="1" color="red" alignItems="center">
+          <FaBan /> {getAxiosError(mutation.error)}
+        </Flex>
+      )}
+
+      {isSubmitSuccessful && (
+        <Flex gridGap="1" color="green" alignItems="center">
+          <FaCheckCircle /> New course added
+        </Flex>
+      )}
     </Flex>
   );
 }
