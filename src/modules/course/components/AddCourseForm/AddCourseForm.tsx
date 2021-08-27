@@ -97,11 +97,10 @@ export function AddCourseForm() {
       <Button
         type="submit"
         spinner={<Spinner />}
-        mt="5"
         disabled={isSubmitting}
         isLoading={isSubmitting}
       >
-        Submit
+        Add
       </Button>
 
       {mutation.error && (

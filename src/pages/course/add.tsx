@@ -13,7 +13,7 @@ function CourseReviewAddPage() {
           Add course
         </Heading>
 
-        <Box shadow="lg" mt="3" py="10" px="5" rounded="base">
+        <Box shadow="lg" mt="3" pt="5" pb="10" px="5" rounded="base">
           <AddCourseForm />
         </Box>
       </Box>

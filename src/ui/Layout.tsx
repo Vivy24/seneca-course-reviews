@@ -14,7 +14,7 @@ function Layout(props: PropsWithChildren<Props>) {
         flex="1 1 0%"
         maxWidth="5xl"
         mx="auto"
-        px="2"
+        px="4"
         w="full"
         mt="5"
       >
