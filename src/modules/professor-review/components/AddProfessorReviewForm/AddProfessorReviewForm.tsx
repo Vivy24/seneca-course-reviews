@@ -1,5 +1,5 @@
-import { CourseReviews_Index_PostBody } from '@api/course-review';
 import { Courses_Index_GetData, Courses_Index_GetQuery } from '@api/courses';
+import { ProfessorReview_Index_PostBody } from '@api/professor-review';
 import {
   Professors_Index_GetData,
   Professors_Index_GetQuery,
@@ -7,6 +7,7 @@ import {
 import {
   Box,
   Button,
+  Checkbox,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -37,11 +38,11 @@ import { FaBan, FaCheckCircle } from 'react-icons/fa';
 import { useMutation, useQuery } from 'react-query';
 import { Slate } from 'slate-react';
 import {
-  AddCourseReviewFormValues,
-  addCourseReviewSchema,
-} from './add-course-review-schema';
+  AddProfessorReviewFormValues,
+  addProfessorReviewSchema,
+} from './add-professor-review-schema';
 
-export const AddCourseReviewForm = () => {
+export const AddProfessorReviewForm = () => {
   const slate = useEditor();
   const [courses, setCourses] = useState<Course[]>([]);
   const [professors, setProfessors] = useState<Professor[]>([]);
@@ -57,8 +58,8 @@ export const AddCourseReviewForm = () => {
     handleSubmit,
 
     formState: { errors, isSubmitSuccessful, isSubmitting },
-  } = useForm<AddCourseReviewFormValues>({
-    resolver: zodResolver(addCourseReviewSchema),
+  } = useForm<AddProfessorReviewFormValues>({
+    resolver: zodResolver(addProfessorReviewSchema),
   });
 
   const { isFetching } = useQuery({
@@ -99,13 +100,13 @@ export const AddCourseReviewForm = () => {
 
   const mutation: MutationHandleSubmit = useMutation(
     handleSubmit(async (data) => {
-      const newReview: CourseReviews_Index_PostBody = {
+      const newReview: ProfessorReview_Index_PostBody = {
         ...data,
         _createdAt: new Date().toISOString(),
         body: slate.value,
       };
 
-      await axios.post('/api/course-review', newReview);
+      await axios.post('/api/professor-review', newReview);
     })
   );
 
@@ -119,6 +120,39 @@ export const AddCourseReviewForm = () => {
         gridGap="5"
         alignItems="start"
       >
+        <FormControl isInvalid={Boolean(errors.professorName)}>
+          <FormLabel>
+            {isFetchingProfessors ? (
+              <Text as="span">
+                Loading courses <Spinner size="xs" />
+              </Text>
+            ) : (
+              <Text as="span">Select a course</Text>
+            )}
+          </FormLabel>
+
+          <Select {...register('professorName')}>
+            <option value="">Pick a professor</option>
+
+            {professors.map((professor) => (
+              <option key={professor.name} value={professor.name}>
+                {professor.name}
+              </option>
+            ))}
+          </Select>
+
+          {errors.professorName && (
+            <FormErrorMessage>{errors.professorName.message}</FormErrorMessage>
+          )}
+
+          <FormHelperText>
+            Cannot find your professor?{' '}
+            <Button onClick={onOpenProfessor} variant="link">
+              Create a new one
+            </Button>
+          </FormHelperText>
+        </FormControl>
+
         <FormControl isInvalid={Boolean(errors.courseId)}>
           <FormLabel>
             {isFetching ? (
@@ -130,7 +164,7 @@ export const AddCourseReviewForm = () => {
             )}
           </FormLabel>
 
-          <Select {...register('courseId')}>
+          <Select iconSize="0" {...register('courseId')}>
             <option value="">Pick a course</option>
 
             {courses.map((course) => (
@@ -147,44 +181,6 @@ export const AddCourseReviewForm = () => {
           <FormHelperText>
             Cannot find your course?{' '}
             <Button onClick={onOpen} variant="link">
-              Create a new one
-            </Button>
-          </FormHelperText>
-        </FormControl>
-
-        <FormControl isInvalid={Boolean(errors.professorNameList)}>
-          <FormLabel>
-            {isFetchingProfessors ? (
-              <Text as="span">
-                Loading professors <Spinner size="xs" />
-              </Text>
-            ) : (
-              <Text as="span">Select professor(s)</Text>
-            )}
-          </FormLabel>
-
-          <Select
-            iconSize="0"
-            multiple
-            {...register('professorNameList')}
-            height="32"
-          >
-            {professors.map((professor) => (
-              <option key={professor.name} value={professor.name}>
-                {professor.name}
-              </option>
-            ))}
-          </Select>
-
-          {errors.professorNameList && (
-            <FormErrorMessage>
-              {errors.professorNameList.message}
-            </FormErrorMessage>
-          )}
-
-          <FormHelperText>
-            Cannot find your professor?{' '}
-            <Button onClick={onOpenProfessor} variant="link">
               Create a new one
             </Button>
           </FormHelperText>
@@ -212,8 +208,19 @@ export const AddCourseReviewForm = () => {
           </FormHelperText>
         </FormControl>
 
+        <FormControl isInvalid={Boolean(errors.isRecommended)}>
+          <FormLabel>Recommended</FormLabel>
+          <Checkbox {...register('isRecommended')}>
+            I like this professor
+          </Checkbox>
+
+          {errors.isRecommended && (
+            <FormErrorMessage>{errors.isRecommended.message}</FormErrorMessage>
+          )}
+        </FormControl>
+
         <FormControl>
-          <FormLabel>Course review</FormLabel>
+          <FormLabel>Professor review</FormLabel>
 
           <Box borderWidth="1px" rounded="base">
             <Slate {...slate}>
