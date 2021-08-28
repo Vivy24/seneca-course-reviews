@@ -31,6 +31,7 @@ import { AddProfessorForm, Professor } from '@modules/professor';
 import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';
+import NextLink from 'next/link';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaBan, FaCheckCircle } from 'react-icons/fa';
@@ -55,11 +56,12 @@ export const AddCourseReviewForm = () => {
   const {
     register,
     handleSubmit,
-
+    watch,
     formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm<AddCourseReviewFormValues>({
     resolver: zodResolver(addCourseReviewSchema),
   });
+  const professorNameList = watch('professorNameList');
 
   const { isFetching } = useQuery({
     queryKey: 'courses',
@@ -239,7 +241,17 @@ export const AddCourseReviewForm = () => {
 
         {isSubmitSuccessful && (
           <Flex gridGap="1" color="green" alignItems="center">
-            <FaCheckCircle /> Submitted. Thank you for your contribution
+            <FaCheckCircle />
+            Thank you for your contribution.
+            <NextLink href="/professor-review/add" passHref>
+              <Button as="a" variant="link">
+                Add a review for{' '}
+                <Text fontStyle="italic" ml="1">
+                  {professorNameList.join(', ')}
+                </Text>
+                ?
+              </Button>
+            </NextLink>
           </Flex>
         )}
       </Flex>

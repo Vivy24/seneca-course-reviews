@@ -1,11 +1,16 @@
 import { Box, Heading } from '@chakra-ui/react';
 import { AddProfessorReviewForm } from '@modules/professor-review';
+import Head from 'next/head';
 import React from 'react';
 import GoBackButton from 'src/ui/GoBackButton';
 
 function ProfessorReviewAddPage() {
   return (
     <Box>
+      <Head>
+        <title>Add professor review | Vietnamese ICT at Seneca College</title>
+      </Head>
+
       <Box as="header">
         <GoBackButton />
 

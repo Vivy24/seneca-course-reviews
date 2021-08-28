@@ -14,7 +14,7 @@ const Home: NextPage = () => {
         Seneca ICT reviews
       </Heading>
 
-      <Flex gridGap="2" mt="5">
+      <Flex gridGap="2" mt="5" flexWrap="wrap">
         <NextLink href="/course-review/add" passHref>
           <Button size="lg" as="a">
             Review a course
