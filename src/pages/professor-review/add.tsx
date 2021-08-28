@@ -15,7 +15,7 @@ function ProfessorReviewAddPage() {
         <GoBackButton />
 
         <Heading as="h1" size="3xl" mt="2">
-          Add a course review
+          Add a professor review
         </Heading>
 
         <Box shadow="lg" mt="3" pt="5" pb="10" px="5" rounded="base">

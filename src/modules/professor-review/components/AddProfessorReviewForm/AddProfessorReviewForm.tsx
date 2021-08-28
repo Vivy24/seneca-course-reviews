@@ -33,7 +33,7 @@ import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';
 import NextLink from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaBan, FaCheckCircle } from 'react-icons/fa';
 import { useMutation, useQuery } from 'react-query';
@@ -111,6 +111,11 @@ export const AddProfessorReviewForm = () => {
       await axios.post('/api/professor-review', newReview);
     })
   );
+
+  useEffect(() => {
+    // a hacky way to prevent slatejs auto-focus
+    scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -205,9 +210,7 @@ export const AddProfessorReviewForm = () => {
             <FormErrorMessage>{errors.difficulty.message}</FormErrorMessage>
           )}
 
-          <FormHelperText>
-            1 is an easy course, 5 is a hard course
-          </FormHelperText>
+          <FormHelperText>1 is easy marker, 5 is hard marker</FormHelperText>
         </FormControl>
 
         <FormControl isInvalid={Boolean(errors.isRecommended)}>

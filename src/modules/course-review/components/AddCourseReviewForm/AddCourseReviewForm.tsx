@@ -32,7 +32,7 @@ import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';
 import NextLink from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaBan, FaCheckCircle } from 'react-icons/fa';
 import { useMutation, useQuery } from 'react-query';
@@ -110,6 +110,11 @@ export const AddCourseReviewForm = () => {
       await axios.post('/api/course-review', newReview);
     })
   );
+
+  useEffect(() => {
+    // a hacky way to prevent slatejs auto-focus
+    scrollTo(0, 0);
+  }, []);
 
   return (
     <>
