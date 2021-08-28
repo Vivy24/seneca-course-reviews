@@ -12,7 +12,8 @@ async function post(
   req: NextApiRequest,
   res: NextApiResponse<TResult<CourseReviews_Index_PostData>>
 ) {
-  await CourseReviewService.addReview(req.body);
+  const body = req.body as CourseReviews_Index_PostBody;
+  await CourseReviewService.addReview(body);
 
   return res.status(201).json(ResultOk());
 }

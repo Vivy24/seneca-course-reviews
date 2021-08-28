@@ -1,2 +1,3 @@
+export * from './components/AddCourseReviewForm/add-course-review-schema';
 export * from './components/AddCourseReviewForm/AddCourseReviewForm';
-export * from './CourseReview';
+export * from './model/CourseReview';

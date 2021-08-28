@@ -1,5 +1,6 @@
 import { CourseReviews_Index_PostBody } from '@api/course-review';
 import { Courses_Index_GetData } from '@api/courses';
+import { Professors_Index_GetData } from '@api/professors';
 import {
   Box,
   Button,
@@ -23,6 +24,7 @@ import { ApiError } from '@common';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AddCourseForm, Course } from '@modules/course';
 import { Editor, useEditor } from '@modules/editor';
+import { AddProfessorForm, Professor } from '@modules/professor';
 import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';
@@ -39,7 +41,13 @@ import {
 export const AddCourseReviewForm = () => {
   const slate = useEditor();
   const [courses, setCourses] = useState<Course[]>([]);
+  const [professors, setProfessors] = useState<Professor[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenProfessor,
+    onOpen: onOpenProfessor,
+    onClose: onCloseProfessor,
+  } = useDisclosure();
 
   const {
     register,
@@ -50,14 +58,23 @@ export const AddCourseReviewForm = () => {
     resolver: zodResolver(addCourseReviewSchema),
   });
 
-  const { isLoading } = useQuery({
+  const { isFetching } = useQuery({
     queryKey: 'courses',
     queryFn: () => axios.get<Courses_Index_GetData>('/api/courses'),
     onError: (error: ApiError) => getAxiosError(error),
     onSuccess: (response) => {
       const data = response.data.data;
       setCourses(data);
-      setValue('courseId', data?.[0].courseId ?? '');
+    },
+  });
+
+  const { isFetching: isFetchingProfessors } = useQuery({
+    queryKey: 'professors',
+    queryFn: () => axios.get<Professors_Index_GetData>('/api/professors'),
+    onError: (error: ApiError) => getAxiosError(error),
+    onSuccess: (response) => {
+      const data = response.data.data;
+      setProfessors(data);
     },
   });
 
@@ -66,10 +83,7 @@ export const AddCourseReviewForm = () => {
       const newReview: CourseReviews_Index_PostBody = {
         ...data,
         _createdAt: new Date().toISOString(),
-        _type: 'course',
         body: slate.value,
-        isRecommended: false,
-        professorIdList: [],
       };
 
       await axios.post('/api/course-review', newReview);
@@ -88,7 +102,7 @@ export const AddCourseReviewForm = () => {
       >
         <FormControl isInvalid={Boolean(errors.courseId)}>
           <FormLabel>
-            {isLoading ? (
+            {isFetching ? (
               <Text as="span">
                 Loading courses <Spinner size="xs" />
               </Text>
@@ -98,6 +112,8 @@ export const AddCourseReviewForm = () => {
           </FormLabel>
 
           <Select {...register('courseId')}>
+            <option value="">Pick a course</option>
+
             {courses.map((course) => (
               <option key={course.courseId} value={course.courseId}>
                 {`${course.courseId.toUpperCase()} - ${course.courseName}`}
@@ -106,7 +122,7 @@ export const AddCourseReviewForm = () => {
           </Select>
 
           {errors.courseId && (
-            <FormErrorMessage>{errors.courseId}</FormErrorMessage>
+            <FormErrorMessage>{errors.courseId.message}</FormErrorMessage>
           )}
 
           <FormHelperText>
@@ -117,10 +133,50 @@ export const AddCourseReviewForm = () => {
           </FormHelperText>
         </FormControl>
 
+        <FormControl isInvalid={Boolean(errors.professorNameList)}>
+          <FormLabel>
+            {isFetchingProfessors ? (
+              <Text as="span">
+                Loading professors <Spinner size="xs" />
+              </Text>
+            ) : (
+              <Text as="span">Select professor(s)</Text>
+            )}
+          </FormLabel>
+
+          <Select
+            iconSize="0"
+            multiple
+            {...register('professorNameList')}
+            height="32"
+          >
+            {professors.map((professor) => (
+              <option key={professor.name} value={professor.name}>
+                {professor.name}
+              </option>
+            ))}
+          </Select>
+
+          {errors.professorNameList && (
+            <FormErrorMessage>
+              {errors.professorNameList.message}
+            </FormErrorMessage>
+          )}
+
+          <FormHelperText>
+            Cannot find your professor?{' '}
+            <Button onClick={onOpenProfessor} variant="link">
+              Create a new one
+            </Button>
+          </FormHelperText>
+        </FormControl>
+
         <FormControl isInvalid={Boolean(errors.difficulty)}>
           <FormLabel>Difficulty</FormLabel>
 
           <Select {...register('difficulty')}>
+            <option value="">Choose difficult level</option>
+
             {[1, 2, 3, 4, 5].map((value) => (
               <option key={value} value={value}>
                 {value}
@@ -132,11 +188,13 @@ export const AddCourseReviewForm = () => {
             <FormErrorMessage>{errors.difficulty.message}</FormErrorMessage>
           )}
 
-          <FormHelperText>1 is easy, 5 is hard</FormHelperText>
+          <FormHelperText>
+            1 is an easy course, 5 is a hard course
+          </FormHelperText>
         </FormControl>
 
         <FormControl>
-          <FormLabel>Your review</FormLabel>
+          <FormLabel>Course review</FormLabel>
 
           <Box borderWidth="1px" rounded="base">
             <Slate {...slate}>
@@ -174,6 +232,17 @@ export const AddCourseReviewForm = () => {
           <ModalCloseButton />
           <ModalBody>
             <AddCourseForm />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+
+      <Modal isOpen={isOpenProfessor} onClose={onCloseProfessor} size="5xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Add a new professor</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <AddProfessorForm />
           </ModalBody>
         </ModalContent>
       </Modal>

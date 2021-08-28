@@ -21,13 +21,15 @@ import axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FaBan, FaCheckCircle } from 'react-icons/fa';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import {
   AddProfessorFormValues,
   addProfessorSchema,
 } from './add-professor-schema';
 
 export const AddProfessorForm = () => {
+  const queryClient = useQueryClient();
+
   const {
     handleSubmit,
     register,
@@ -47,7 +49,8 @@ export const AddProfessorForm = () => {
         '/api/professor',
         data as Professor_Index_PostBody
       );
-    })
+    }),
+    { onSuccess: () => queryClient.invalidateQueries('professors') }
   );
 
   return (

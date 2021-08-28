@@ -12,6 +12,6 @@ export class ProfessorSerivce {
   }
 
   static async addProfessor(professor: AddProfessorFormValues) {
-    collectionRef.add(professor);
+    collectionRef.doc(professor.name).set(professor);
   }
 }
