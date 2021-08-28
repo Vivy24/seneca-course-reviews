@@ -6,7 +6,6 @@ export const addCourseFormSchema = z.object({
     .min(1, { message: 'Cannot be empty' })
     .transform((val) => val.toLowerCase()),
   courseName: z.string().min(1, { message: 'Cannot be empty' }),
-  courseDescription: z.string().optional(),
   _createdAt: z.string(),
 });
 

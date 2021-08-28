@@ -11,7 +11,6 @@ import {
   FormLabel,
   Input,
   Spinner,
-  Textarea,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FieldRequiredSymbol from '@ui/FieldRequiredSymbol';
@@ -33,8 +32,7 @@ export const AddProfessorForm = () => {
   const {
     handleSubmit,
     register,
-    reset,
-    watch,
+
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<AddProfessorFormValues>({
     resolver: zodResolver(addProfessorSchema),
@@ -73,21 +71,6 @@ export const AddProfessorForm = () => {
         <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
 
         <FormHelperText>e.g. David Humphrey</FormHelperText>
-      </FormControl>
-
-      <FormControl
-        id="professor-description"
-        isInvalid={Boolean(errors.description)}
-      >
-        <FormLabel>Professor&apos;s description</FormLabel>
-
-        <Textarea {...register('description')} />
-
-        <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
-
-        <FormHelperText>
-          Describe how your experience with the prossors was
-        </FormHelperText>
       </FormControl>
 
       <Button

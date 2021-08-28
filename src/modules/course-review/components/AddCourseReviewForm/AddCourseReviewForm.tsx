@@ -1,6 +1,9 @@
 import { CourseReviews_Index_PostBody } from '@api/course-review';
-import { Courses_Index_GetData } from '@api/courses';
-import { Professors_Index_GetData } from '@api/professors';
+import { Courses_Index_GetData, Courses_Index_GetQuery } from '@api/courses';
+import {
+  Professors_Index_GetData,
+  Professors_Index_GetQuery,
+} from '@api/professors';
 import {
   Box,
   Button,
@@ -52,7 +55,7 @@ export const AddCourseReviewForm = () => {
   const {
     register,
     handleSubmit,
-    setValue,
+
     formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm<AddCourseReviewFormValues>({
     resolver: zodResolver(addCourseReviewSchema),
@@ -60,17 +63,35 @@ export const AddCourseReviewForm = () => {
 
   const { isFetching } = useQuery({
     queryKey: 'courses',
-    queryFn: () => axios.get<Courses_Index_GetData>('/api/courses'),
+    queryFn: () => {
+      const params: Courses_Index_GetQuery = {
+        sort: 'id',
+      };
+
+      return axios.get<Courses_Index_GetData>('/api/courses', {
+        params,
+      });
+    },
     onError: (error: ApiError) => getAxiosError(error),
     onSuccess: (response) => {
-      const data = response.data.data;
+      const data = response.data.data.sort((a, b) =>
+        a.courseName.localeCompare(b.courseName)
+      );
       setCourses(data);
     },
   });
 
   const { isFetching: isFetchingProfessors } = useQuery({
     queryKey: 'professors',
-    queryFn: () => axios.get<Professors_Index_GetData>('/api/professors'),
+    queryFn: () => {
+      const params: Professors_Index_GetQuery = {
+        sort: 'name',
+      };
+
+      return axios.get<Professors_Index_GetData>('/api/professors', {
+        params,
+      });
+    },
     onError: (error: ApiError) => getAxiosError(error),
     onSuccess: (response) => {
       const data = response.data.data;

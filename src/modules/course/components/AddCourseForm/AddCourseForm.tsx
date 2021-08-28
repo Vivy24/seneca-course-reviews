@@ -8,7 +8,6 @@ import {
   FormLabel,
   Input,
   Spinner,
-  Textarea,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { MutationHandleSubmit } from '@utilities';
@@ -29,8 +28,6 @@ export function AddCourseForm() {
   const {
     handleSubmit,
     register,
-    reset,
-    watch,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<AddCourseFormValues>({
     resolver: zodResolver(addCourseFormSchema),
@@ -38,8 +35,6 @@ export function AddCourseForm() {
       _createdAt: new Date().toISOString(),
     },
   });
-
-  const courseId = watch('courseId');
 
   const mutation: MutationHandleSubmit = useMutation(
     handleSubmit(async (data) => {
@@ -85,21 +80,6 @@ export function AddCourseForm() {
 
         <FormHelperText>
           e.g. Introduction to UNIX/Linux and the Internet
-        </FormHelperText>
-      </FormControl>
-
-      <FormControl
-        id="course-description"
-        isInvalid={Boolean(errors.courseDescription)}
-      >
-        <FormLabel>Course description</FormLabel>
-
-        <Textarea {...register('courseDescription')} />
-
-        <FormErrorMessage>{errors.courseDescription?.message}</FormErrorMessage>
-
-        <FormHelperText>
-          In less than 3 sentences, describe what this course is about.
         </FormHelperText>
       </FormControl>
 

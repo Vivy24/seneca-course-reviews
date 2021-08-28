@@ -17,4 +17,6 @@ declare module '@common' {
   type TResult<Data = unknown> = TResultSuccess<Data> | TResultError;
 
   type ApiError = AxiosError<TResultError>;
+
+  type Order = 'asc' | 'desc';
 }
