@@ -22,7 +22,7 @@ const ParagraphElement = (props: RenderElementProps) => {
 
 const HeadingOneElement = (props: RenderElementProps) => {
   return (
-    <Heading as="h1" size="4xl" {...props.attributes}>
+    <Heading as="h1" size="2xl" mt="5" mb="2" {...props.attributes}>
       {props.children}
     </Heading>
   );
@@ -30,7 +30,7 @@ const HeadingOneElement = (props: RenderElementProps) => {
 
 const HeadingTwoElement = (props: RenderElementProps) => {
   return (
-    <Heading as="h2" size="3xl" {...props.attributes}>
+    <Heading as="h2" size="lg" mt="3" mb="1" {...props.attributes}>
       {props.children}
     </Heading>
   );

@@ -14,6 +14,7 @@ const MarkButton = ({ format }: Props) => {
   return (
     <IconButton
       aria-label={format}
+      title={format}
       icon={<Icon name={format} />}
       isActive={isActive}
       onMouseDown={(event) => {

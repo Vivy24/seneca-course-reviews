@@ -60,18 +60,19 @@ function Editor() {
           <MarkButton format="bold" />
           <MarkButton format="italic" />
           <MarkButton format="underline" />
-          <MarkButton format="code" />
-          <IconButton
-            aria-label="Clear format"
-            icon={<FaTrash />}
-            onClick={() => removeAllMarks(editor)}
-          />
 
           <BlockButton format="h1" />
           <BlockButton format="h2" />
-          <BlockButton format="block-quote" />
           <BlockButton format="list-ol" />
           <BlockButton format="list-ul" />
+
+          <IconButton
+            colorScheme="red"
+            aria-label="Clear format"
+            title="Clear format"
+            icon={<FaTrash />}
+            onClick={() => removeAllMarks(editor)}
+          />
         </ButtonGroup>
       </Flex>
       {/* </Toolbar> */}

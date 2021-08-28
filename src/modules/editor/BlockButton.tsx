@@ -22,6 +22,7 @@ const BlockButton = ({ format }: Props) => {
   return (
     <IconButton
       aria-label={format}
+      title={format}
       icon={<Icon name={format} />}
       isActive={isBlockActive(editor, format)}
       onMouseDown={(event) => {
