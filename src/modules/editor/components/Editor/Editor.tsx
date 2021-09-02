@@ -3,17 +3,14 @@ import isHotkey from 'is-hotkey';
 import React, { KeyboardEventHandler, useCallback } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { Editable, useSlate } from 'slate-react';
-import BlockButton from './BlockButton';
+import { BlockButton, MarkButton, renderElement, renderLeaf } from '..';
 import {
   BLOCK_HOTKEYS,
   MARK_HOTKEYS,
   removeAllMarks,
   toggleBlock,
   toggleMark,
-} from './editor-utils';
-import { renderElement } from './EditorElement';
-import { renderLeaf } from './EditorLeaf';
-import MarkButton from './MarkButton';
+} from '../..';
 
 function Editor() {
   const memoRenderElement = useCallback(renderElement, []);

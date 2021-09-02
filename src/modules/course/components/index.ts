@@ -1,2 +1,2 @@
-export * from './AddCourseForm/AddCourseForm';
-export * from './CoursePreviewCard/CoursePreviewCard';
+export * from './AddCourseForm';
+export * from './CoursePreviewCard';

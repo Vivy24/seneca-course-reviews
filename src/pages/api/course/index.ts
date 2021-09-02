@@ -1,6 +1,6 @@
 import { HasMessage, TResult } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { AddCourseFormValues } from '@modules/course/components/AddCourseForm/add-course-form-schema';
+import { AddCourseFormValues } from '@modules/course';
 import { CourseService } from '@modules/course/server-index';
 import { ResultError, ResultOk } from '@utils/api-utils';
 import difference from 'lodash/difference';

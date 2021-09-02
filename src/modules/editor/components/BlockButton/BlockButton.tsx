@@ -12,7 +12,7 @@ import {
 } from 'react-icons/fa';
 import { BlockFormat } from 'slate';
 import { useSlate } from 'slate-react';
-import { isBlockActive, toggleBlock } from './editor-utils';
+import { isBlockActive, toggleBlock } from '../..';
 type Props = {
   format: BlockFormat;
 };

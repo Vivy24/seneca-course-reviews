@@ -2,7 +2,7 @@ import { IconButton } from '@chakra-ui/react';
 import { FaBold, FaCode, FaItalic, FaUnderline } from 'react-icons/fa';
 import { MarkFormat } from 'slate';
 import { useSlate } from 'slate-react';
-import { isMarkActive, toggleMark } from './editor-utils';
+import { isMarkActive, toggleMark } from '../..';
 
 type Props = {
   format: MarkFormat;

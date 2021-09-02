@@ -1,2 +1,2 @@
 export * from './components';
-export * from './model/Program';
+export * from './model';

@@ -7,7 +7,7 @@ import {
   Text,
   UnorderedList,
 } from '@chakra-ui/react';
-import { Course } from '@modules/course/Course';
+import { Course } from '@modules/course';
 import { toFullDate, toISODate } from '@utils/date-utils';
 import NextLink from 'next/link';
 import React from 'react';
