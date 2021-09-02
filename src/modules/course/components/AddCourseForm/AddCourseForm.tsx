@@ -19,12 +19,12 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AddProgramForm, Program } from '@modules/program';
+import { AddProgramForm } from '@modules/program';
 import { AsyncFormLabel } from '@ui/AsyncFormLabel';
 import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FaBan, FaCheckCircle } from 'react-icons/fa';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
@@ -41,10 +41,8 @@ export function AddCourseForm() {
     onClose: onCloseProgram,
     onOpen: onOpenProgram,
   } = useDisclosure();
-  const [programs, setPrograms] = useState<Program[]>([]);
 
   const {
-    control,
     handleSubmit,
     register,
     formState: { errors, isSubmitting, isSubmitSuccessful },
@@ -65,18 +63,19 @@ export function AddCourseForm() {
     }
   );
 
-  const { isFetching: isFethcingProgram } = useQuery({
-    queryFn: () => {
+  const programsQuery = useQuery({
+    queryFn: async () => {
       const params: Programs_Index_GetQuery = {
         sort: 'id',
       };
 
-      return axios.get<Programs_Index_GetData>('/api/programs', {
+      const res = await axios.get<Programs_Index_GetData>('/api/programs', {
         params,
       });
+
+      return res.data.data;
     },
     queryKey: 'programs',
-    onSuccess: (response) => setPrograms(response.data.data),
   });
 
   return (
@@ -121,13 +120,13 @@ export function AddCourseForm() {
           <AsyncFormLabel
             label="Related program(s)"
             loadingLabel="Loading programs"
-            isLoading={isFethcingProgram}
+            isLoading={programsQuery.isFetching}
           />
 
           <Select multiple h="32" iconSize="0" {...register('programIdList')}>
             <option value=""></option>
 
-            {programs.map((program) => (
+            {programsQuery.data?.map((program) => (
               <option key={program.id} value={program.id}>
                 {`${program.id.toUpperCase()} - ${program.name}`}
               </option>

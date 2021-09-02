@@ -26,14 +26,14 @@ import {
 } from '@chakra-ui/react';
 import { ApiError } from '@common';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AddCourseForm, Course } from '@modules/course';
+import { AddCourseForm } from '@modules/course';
 import { Editor, useEditor } from '@modules/editor';
-import { AddProfessorForm, Professor } from '@modules/professor';
+import { AddProfessorForm } from '@modules/professor';
 import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';
 import NextLink from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaBan, FaCheckCircle } from 'react-icons/fa';
 import { useMutation, useQuery } from 'react-query';
@@ -45,8 +45,7 @@ import {
 
 export const AddProfessorReviewForm = () => {
   const slate = useEditor();
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [professors, setProfessors] = useState<Professor[]>([]);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenProfessor,
@@ -64,43 +63,39 @@ export const AddProfessorReviewForm = () => {
   });
   const courseId = watch('courseId');
 
-  const { isFetching } = useQuery({
+  const coursesQuery = useQuery({
     queryKey: 'courses',
-    queryFn: () => {
+    queryFn: async () => {
       const params: Courses_Index_GetQuery = {
         sort: 'id',
       };
 
-      return axios.get<Courses_Index_GetData>('/api/courses', {
+      const res = await axios.get<Courses_Index_GetData>('/api/courses', {
         params,
       });
+
+      return res.data.data;
     },
     onError: (error: ApiError) => getAxiosError(error),
-    onSuccess: (response) => {
-      const data = response.data.data;
-      setCourses(data);
-    },
   });
 
-  const { isFetching: isFetchingProfessors } = useQuery({
+  const professorsQuery = useQuery({
     queryKey: 'professors',
-    queryFn: () => {
+    queryFn: async () => {
       const params: Professors_Index_GetQuery = {
         sort: 'name',
       };
 
-      return axios.get<Professors_Index_GetData>('/api/professors', {
+      const res = await axios.get<Professors_Index_GetData>('/api/professors', {
         params,
       });
+
+      return res.data.data;
     },
     onError: (error: ApiError) => getAxiosError(error),
-    onSuccess: (response) => {
-      const data = response.data.data;
-      setProfessors(data);
-    },
   });
 
-  const mutation: MutationHandleSubmit = useMutation(
+  const submitMutation: MutationHandleSubmit = useMutation(
     handleSubmit(async (data) => {
       const newReview: ProfessorReview_Index_PostBody = {
         ...data,
@@ -120,7 +115,7 @@ export const AddProfessorReviewForm = () => {
   return (
     <>
       <Flex
-        onSubmit={mutation.mutate}
+        onSubmit={submitMutation.mutate}
         as="form"
         noValidate
         direction="column"
@@ -129,7 +124,7 @@ export const AddProfessorReviewForm = () => {
       >
         <FormControl isInvalid={Boolean(errors.professorName)}>
           <FormLabel>
-            {isFetchingProfessors ? (
+            {professorsQuery.isFetching ? (
               <Text as="span">
                 Loading courses <Spinner size="xs" />
               </Text>
@@ -141,7 +136,7 @@ export const AddProfessorReviewForm = () => {
           <Select {...register('professorName')}>
             <option value="">Pick a professor</option>
 
-            {professors.map((professor) => (
+            {professorsQuery.data?.map((professor) => (
               <option key={professor.name} value={professor.name}>
                 {professor.name}
               </option>
@@ -162,7 +157,7 @@ export const AddProfessorReviewForm = () => {
 
         <FormControl isInvalid={Boolean(errors.courseId)}>
           <FormLabel>
-            {isFetching ? (
+            {coursesQuery.isFetching ? (
               <Text as="span">
                 Loading courses <Spinner size="xs" />
               </Text>
@@ -174,7 +169,7 @@ export const AddProfessorReviewForm = () => {
           <Select iconSize="0" {...register('courseId')}>
             <option value="">Pick a course</option>
 
-            {courses.map((course) => (
+            {coursesQuery.data?.map((course) => (
               <option key={course.courseId} value={course.courseId}>
                 {`${course.courseId.toUpperCase()} - ${course.courseName}`}
               </option>
@@ -243,9 +238,9 @@ export const AddProfessorReviewForm = () => {
           Submit
         </Button>
 
-        {mutation.error && (
+        {submitMutation.error && (
           <Flex gridGap="1" color="red" alignItems="center">
-            <FaBan /> {getAxiosError(mutation.error)}
+            <FaBan /> {getAxiosError(submitMutation.error)}
           </Flex>
         )}
 

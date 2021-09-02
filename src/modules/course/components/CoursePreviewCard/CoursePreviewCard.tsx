@@ -18,10 +18,14 @@ type Props = {
 export const CoursePreviewCard = ({ course }: Props) => {
   return (
     <Stack as="article" width="max-content">
-      <Heading size="lg">{course.courseId.toUpperCase()}</Heading>
+      <NextLink href={`/course/${course.courseId}`} passHref>
+        <Link>
+          <Heading size="lg">{course.courseId.toUpperCase()}</Heading>
+        </Link>
+      </NextLink>
 
       <Text>
-        Last updated:{' '}
+        Created:{' '}
         <Text as="time" dateTime={toISODate(course._createdAt)}>
           {toFullDate(course._createdAt)}
         </Text>

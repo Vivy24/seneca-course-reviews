@@ -41,7 +41,7 @@ export const AddProfessorForm = () => {
     },
   });
 
-  const mutation: MutationHandleSubmit = useMutation(
+  const submitMutation: MutationHandleSubmit = useMutation(
     handleSubmit((data) => {
       axios.post<Professor_Index_PostData>(
         '/api/professor',
@@ -54,7 +54,7 @@ export const AddProfessorForm = () => {
   return (
     <Flex
       as="form"
-      onSubmit={mutation.mutate}
+      onSubmit={submitMutation.mutate}
       noValidate
       direction="column"
       gridGap="5"
@@ -82,9 +82,9 @@ export const AddProfessorForm = () => {
         Add
       </Button>
 
-      {mutation.error && (
+      {submitMutation.error && (
         <Flex gridGap="1" color="red" alignItems="center">
-          <FaBan /> {getAxiosError(mutation.error)}
+          <FaBan /> {getAxiosError(submitMutation.error)}
         </Flex>
       )}
 
