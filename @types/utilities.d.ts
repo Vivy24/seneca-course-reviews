@@ -10,4 +10,9 @@ declare module '@utilities' {
     React.BaseSyntheticEvent<object, any, any> | undefined,
     unknown
   >;
+
+  type PartiallyPartial<T, RequiredKeys extends keyof T> = Partial<
+    Omit<T, RequiredKeys>
+  > &
+    Pick<T, RequiredKeys>;
 }

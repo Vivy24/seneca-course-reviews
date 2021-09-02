@@ -1,3 +1,5 @@
+import { PartiallyPartial } from '@utilities';
+import { firestore as admin } from 'firebase-admin';
 import { firestore } from 'src/lib/firebase/firebase';
 import { Course } from '../Course';
 
@@ -26,5 +28,20 @@ export class CourseService {
 
   static async addCourse(course: Course) {
     collectionRef.doc(course.courseId).set(course);
+  }
+
+  static async updateCourse(course: PartiallyPartial<Course, 'courseId'>) {
+    collectionRef.doc(course.courseId).update(course);
+  }
+
+  static async addProgramsToCourse(courseId: string, programIdList: string[]) {
+    const updatedList = admin.FieldValue.arrayUnion(
+      ...programIdList
+    ) as unknown as string[];
+
+    this.updateCourse({
+      courseId,
+      programIdList: updatedList,
+    });
   }
 }

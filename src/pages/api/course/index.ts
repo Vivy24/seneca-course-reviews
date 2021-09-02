@@ -3,22 +3,40 @@ import { withApiHandler } from '@lib/api/withApiHandler';
 import { AddCourseFormValues } from '@modules/course/components/AddCourseForm/add-course-form-schema';
 import { CourseService } from '@modules/course/server-index';
 import { ResultError, ResultOk } from '@utils/api-utils';
+import difference from 'lodash/difference';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export type Course_Index_PostData = HasMessage;
+type PostData = HasMessage;
+export type Course_Index_PostData = PostData;
 export type Course_Index_PostBody = AddCourseFormValues;
 
 async function post(
   req: NextApiRequest,
-  res: NextApiResponse<TResult<Course_Index_PostData>>
+  res: NextApiResponse<TResult<PostData>>
 ) {
   const newCourse: Course_Index_PostBody = req.body;
 
-  if (await CourseService.isCourseExist(newCourse.courseId))
-    return res.status(422).json(ResultError('Course exist'));
+  const course = await CourseService.getCourse(newCourse.courseId);
+  if (course === null) {
+    await CourseService.addCourse(newCourse);
+    return res.status(201).json(ResultOk());
+  }
 
-  await CourseService.addCourse(newCourse);
-  return res.status(201).json(ResultOk());
+  const programIdDifferenceList = difference(
+    newCourse.programIdList,
+    course.programIdList
+  );
+
+  if (programIdDifferenceList.length > 0) {
+    await CourseService.addProgramsToCourse(
+      course.courseId,
+      programIdDifferenceList
+    );
+
+    return res.status(200).json(ResultOk());
+  }
+
+  return res.status(422).json(ResultError('Course exist'));
 }
 
 export default withApiHandler({ post });

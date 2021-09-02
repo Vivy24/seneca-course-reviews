@@ -1,4 +1,5 @@
 import { Course_Index_PostBody } from '@api/course';
+import { Programs_Index_GetData, Programs_Index_GetQuery } from '@api/programs';
 import {
   Button,
   Flex,
@@ -7,16 +8,26 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Select,
   Spinner,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AddProgramForm, Program } from '@modules/program';
+import { AsyncFormLabel } from '@ui/AsyncFormLabel';
 import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaBan, FaCheckCircle } from 'react-icons/fa';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import FieldRequiredSymbol from 'src/ui/FieldRequiredSymbol';
 import {
   addCourseFormSchema,
@@ -26,6 +37,14 @@ import {
 export function AddCourseForm() {
   const queryClient = useQueryClient();
   const {
+    isOpen: isOpenProgram,
+    onClose: onCloseProgram,
+    onOpen: onOpenProgram,
+  } = useDisclosure();
+  const [programs, setPrograms] = useState<Program[]>([]);
+
+  const {
+    control,
     handleSubmit,
     register,
     formState: { errors, isSubmitting, isSubmitSuccessful },
@@ -46,63 +65,119 @@ export function AddCourseForm() {
     }
   );
 
+  const { isFetching: isFethcingProgram } = useQuery({
+    queryFn: () => {
+      const params: Programs_Index_GetQuery = {
+        sort: 'id',
+      };
+
+      return axios.get<Programs_Index_GetData>('/api/programs', {
+        params,
+      });
+    },
+    queryKey: 'programs',
+    onSuccess: (response) => setPrograms(response.data.data),
+  });
+
   return (
-    <Flex
-      as="form"
-      onSubmit={mutation.mutate}
-      noValidate
-      direction="column"
-      gridGap="5"
-      alignItems="start"
-    >
-      <FormControl id="course-id" isInvalid={Boolean(errors.courseId)}>
-        <FormLabel>
-          Course ID
-          <FieldRequiredSymbol />
-        </FormLabel>
-
-        <Input type="text" {...register('courseId')} />
-
-        <FormErrorMessage>{errors.courseId?.message}</FormErrorMessage>
-
-        <FormHelperText>e.g. ULI101, IPC144, etc.</FormHelperText>
-      </FormControl>
-
-      <FormControl id="course-name" isInvalid={Boolean(errors.courseName)}>
-        <FormLabel>
-          Course name
-          <FieldRequiredSymbol />
-        </FormLabel>
-
-        <Input type="text" {...register('courseName')} />
-
-        <FormErrorMessage>{errors.courseName?.message}</FormErrorMessage>
-
-        <FormHelperText>
-          e.g. Introduction to UNIX/Linux and the Internet
-        </FormHelperText>
-      </FormControl>
-
-      <Button
-        type="submit"
-        spinner={<Spinner />}
-        disabled={isSubmitting}
-        isLoading={isSubmitting}
+    <>
+      <Flex
+        as="form"
+        onSubmit={mutation.mutate}
+        noValidate
+        direction="column"
+        gridGap="5"
+        alignItems="start"
       >
-        Add
-      </Button>
+        <FormControl id="course-id" isInvalid={Boolean(errors.courseId)}>
+          <FormLabel>
+            Course ID
+            <FieldRequiredSymbol />
+          </FormLabel>
 
-      {mutation.error && (
-        <Flex gridGap="1" color="red" alignItems="center">
-          <FaBan /> {getAxiosError(mutation.error)}
-        </Flex>
-      )}
+          <Input type="text" {...register('courseId')} />
 
-      {isSubmitSuccessful && (
-        <Flex gridGap="1" color="green" alignItems="center">
-          <FaCheckCircle /> New course added successfully
-        </Flex>
-      )}
-    </Flex>
+          <FormErrorMessage>{errors.courseId?.message}</FormErrorMessage>
+
+          <FormHelperText>e.g. ULI101, IPC144, etc.</FormHelperText>
+        </FormControl>
+
+        <FormControl id="course-name" isInvalid={Boolean(errors.courseName)}>
+          <FormLabel>
+            Course name
+            <FieldRequiredSymbol />
+          </FormLabel>
+
+          <Input type="text" {...register('courseName')} />
+
+          <FormErrorMessage>{errors.courseName?.message}</FormErrorMessage>
+
+          <FormHelperText>
+            e.g. Introduction to UNIX/Linux and the Internet
+          </FormHelperText>
+        </FormControl>
+
+        <FormControl isInvalid={Boolean(errors.programIdList)}>
+          <AsyncFormLabel
+            label="Related program(s)"
+            loadingLabel="Loading programs"
+            isLoading={isFethcingProgram}
+          />
+
+          <Select multiple h="32" iconSize="0" {...register('programIdList')}>
+            <option value=""></option>
+
+            {programs.map((program) => (
+              <option key={program.id} value={program.id}>
+                {`${program.id.toUpperCase()} - ${program.name}`}
+              </option>
+            ))}
+          </Select>
+
+          {errors.programIdList && (
+            <FormErrorMessage>{errors.programIdList.message}</FormErrorMessage>
+          )}
+
+          <FormHelperText>
+            Cannot find your program?{' '}
+            <Button onClick={onOpenProgram} variant="link">
+              Create a new one
+            </Button>
+          </FormHelperText>
+        </FormControl>
+
+        <Button
+          type="submit"
+          spinner={<Spinner />}
+          disabled={isSubmitting}
+          isLoading={isSubmitting}
+        >
+          Add
+        </Button>
+
+        {mutation.error && (
+          <Flex gridGap="1" color="red" alignItems="center">
+            <FaBan /> {getAxiosError(mutation.error)}
+          </Flex>
+        )}
+
+        {isSubmitSuccessful && (
+          <Flex gridGap="1" color="green" alignItems="center">
+            <FaCheckCircle /> New course added successfully
+          </Flex>
+        )}
+      </Flex>
+
+      <Modal isOpen={isOpenProgram} onClose={onCloseProgram} size="5xl">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Add a new program</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <AddProgramForm />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
