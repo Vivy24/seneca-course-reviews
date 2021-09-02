@@ -133,7 +133,7 @@ export const AddCourseReviewForm = () => {
           </FormLabel>
 
           <Select {...register('courseId')}>
-            <option value="">Pick a course</option>
+            <option value=""></option>
 
             {coursesQuery.data?.map((course) => (
               <option key={course.courseId} value={course.courseId}>
@@ -196,7 +196,7 @@ export const AddCourseReviewForm = () => {
           <FormLabel>Difficulty</FormLabel>
 
           <Select {...register('difficulty')}>
-            <option value="">Choose difficult level</option>
+            <option value=""></option>
 
             {[1, 2, 3, 4, 5].map((value) => (
               <option key={value} value={value}>

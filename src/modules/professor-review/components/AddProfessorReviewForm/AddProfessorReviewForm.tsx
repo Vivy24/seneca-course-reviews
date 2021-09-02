@@ -126,15 +126,15 @@ export const AddProfessorReviewForm = () => {
           <FormLabel>
             {professorsQuery.isFetching ? (
               <Text as="span">
-                Loading courses <Spinner size="xs" />
+                Loading professors <Spinner size="xs" />
               </Text>
             ) : (
-              <Text as="span">Select a course</Text>
+              <Text as="span">Select a professor</Text>
             )}
           </FormLabel>
 
           <Select {...register('professorName')}>
-            <option value="">Pick a professor</option>
+            <option value=""></option>
 
             {professorsQuery.data?.map((professor) => (
               <option key={professor.name} value={professor.name}>
@@ -167,7 +167,7 @@ export const AddProfessorReviewForm = () => {
           </FormLabel>
 
           <Select iconSize="0" {...register('courseId')}>
-            <option value="">Pick a course</option>
+            <option value=""></option>
 
             {coursesQuery.data?.map((course) => (
               <option key={course.courseId} value={course.courseId}>
@@ -192,7 +192,7 @@ export const AddProfessorReviewForm = () => {
           <FormLabel>Difficulty</FormLabel>
 
           <Select {...register('difficulty')}>
-            <option value="">Choose difficult level</option>
+            <option value=""></option>
 
             {[1, 2, 3, 4, 5].map((value) => (
               <option key={value} value={value}>
@@ -205,7 +205,9 @@ export const AddProfessorReviewForm = () => {
             <FormErrorMessage>{errors.difficulty.message}</FormErrorMessage>
           )}
 
-          <FormHelperText>1 is easy marker, 5 is hard marker</FormHelperText>
+          <FormHelperText>
+            1 is an easy marker, 5 is a hard marker
+          </FormHelperText>
         </FormControl>
 
         <FormControl isInvalid={Boolean(errors.isRecommended)}>

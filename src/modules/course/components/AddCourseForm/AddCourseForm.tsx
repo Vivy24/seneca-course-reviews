@@ -124,8 +124,6 @@ export function AddCourseForm() {
           />
 
           <Select multiple h="32" iconSize="0" {...register('programIdList')}>
-            <option value=""></option>
-
             {programsQuery.data?.map((program) => (
               <option key={program.id} value={program.id}>
                 {`${program.id.toUpperCase()} - ${program.name}`}
