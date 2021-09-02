@@ -11,6 +11,7 @@ import {
 import { CoursePreviewCard } from '@modules/course';
 import { PreviewGridList } from '@ui/PreviewGridList';
 import axios from 'axios';
+import Head from 'next/head';
 import NextLink from 'next/link';
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
@@ -27,6 +28,10 @@ const CoursesIndexPage = () => {
 
   return (
     <Box>
+      <Head>
+        <title>Courses | Vietnamese ICT at Seneca College</title>
+      </Head>
+
       <Heading textAlign="center" size="4xl">
         Courses
       </Heading>

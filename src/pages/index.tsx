@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <Box mt="10">
       <Head>
-        <title>Seneca ICT</title>
+        <title>Homepage | Vietnamese ICT at Seneca College</title>
       </Head>
 
       <Heading as="h1" size="4xl">

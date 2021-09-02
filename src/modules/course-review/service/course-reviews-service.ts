@@ -10,6 +10,14 @@ export class CourseReviewService {
     return snapshot.docs.map((doc) => doc.data() as CourseReview);
   }
 
+  static async getReviewsByCourseId(courseId: string): Promise<CourseReview[]> {
+    const snapshot = await collectionRef
+      .where('courseId', '==', courseId.toLowerCase())
+      .get();
+
+    return snapshot.docs.map((doc) => doc.data() as CourseReview);
+  }
+
   static async addReview(review: CourseReview) {
     collectionRef.add(review);
   }

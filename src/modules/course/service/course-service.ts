@@ -7,7 +7,7 @@ const collectionRef = firestore.collection('course');
 
 export class CourseService {
   static async getCourse(courseId: string): Promise<Course | null> {
-    const snapshot = await collectionRef.doc(courseId).get();
+    const snapshot = await collectionRef.doc(courseId.toLowerCase()).get();
 
     if (!snapshot.exists) return null;
 
@@ -21,17 +21,17 @@ export class CourseService {
   }
 
   static async isCourseExist(courseId: string): Promise<boolean> {
-    const course = await this.getCourse(courseId);
+    const course = await this.getCourse(courseId.toLowerCase());
 
     return course !== null;
   }
 
   static async addCourse(course: Course) {
-    collectionRef.doc(course.courseId).set(course);
+    collectionRef.doc(course.courseId.toLowerCase()).set(course);
   }
 
   static async updateCourse(course: PartiallyPartial<Course, 'courseId'>) {
-    collectionRef.doc(course.courseId).update(course);
+    collectionRef.doc(course.courseId.toLowerCase()).update(course);
   }
 
   static async addProgramsToCourse(courseId: string, programIdList: string[]) {
@@ -40,7 +40,7 @@ export class CourseService {
     ) as unknown as string[];
 
     this.updateCourse({
-      courseId,
+      courseId: courseId.toLowerCase(),
       programIdList: updatedList,
     });
   }
