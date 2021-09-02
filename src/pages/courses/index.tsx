@@ -2,6 +2,7 @@ import { Courses_Index_GetData } from '@api/courses';
 import {
   Box,
   Heading,
+  HStack,
   IconButton,
   Spinner,
   Stack,
@@ -30,32 +31,40 @@ const CoursesIndexPage = () => {
         Courses
       </Heading>
 
-      {coursesQuery.data && (
-        <PreviewGridList>
-          <Stack
-            h="full"
-            as="article"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <NextLink href="/course/add" passHref>
-              <IconButton
-                as="a"
-                aria-label="Add a new course"
-                rounded="full"
-                icon={<FaPlus />}
-              />
-            </NextLink>
-            <Text>Add a new course</Text>
-          </Stack>
+      <Box mt={5}>
+        {coursesQuery.data && (
+          <PreviewGridList>
+            <Stack
+              h="full"
+              as="article"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <NextLink href="/course/add" passHref>
+                <IconButton
+                  as="a"
+                  aria-label="Add a new course"
+                  rounded="full"
+                  icon={<FaPlus />}
+                />
+              </NextLink>
+              <Text>Add a new course</Text>
+            </Stack>
 
-          {coursesQuery.data.map((course) => (
-            <CoursePreviewCard key={course.courseId} course={course} />
-          ))}
-        </PreviewGridList>
-      )}
+            {coursesQuery.data?.map((course) => (
+              <CoursePreviewCard key={course.courseId} course={course} />
+            ))}
+          </PreviewGridList>
+        )}
 
-      {!coursesQuery.data && <Spinner mt={3} size="xl" />}
+        {coursesQuery.isFetching && (
+          <HStack mt={3} alignItems="center">
+            <Spinner />
+
+            <Text>Fetching courses</Text>
+          </HStack>
+        )}
+      </Box>
     </Box>
   );
 };
