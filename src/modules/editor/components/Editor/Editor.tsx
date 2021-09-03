@@ -43,7 +43,6 @@ function Editor() {
 
   return (
     <Box position="relative">
-      {/* <Toolbar> */}
       <Flex
         position="sticky"
         top="0"
@@ -72,7 +71,6 @@ function Editor() {
           />
         </ButtonGroup>
       </Flex>
-      {/* </Toolbar> */}
 
       <Box p={5}>
         <Editable
@@ -80,7 +78,6 @@ function Editor() {
           renderLeaf={memoRenderLeaf}
           placeholder="Enter some rich text…"
           spellCheck
-          autoFocus
           onKeyDown={handleKeyDown}
         />
       </Box>

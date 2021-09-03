@@ -1,4 +1,4 @@
-import { HStack, Text } from '@chakra-ui/layout';
+import { HStack, Text } from '@chakra-ui/react';
 import { Spinner } from '@chakra-ui/spinner';
 import { TResult } from '@common';
 import { useRouter } from 'next/router';

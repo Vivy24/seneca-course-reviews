@@ -12,6 +12,7 @@ import {
   FormErrorMessage,
   FormHelperText,
   FormLabel,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -32,7 +33,7 @@ import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';
 import NextLink from 'next/link';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FaBan, FaCheckCircle } from 'react-icons/fa';
 import { useMutation, useQuery } from 'react-query';
@@ -105,11 +106,6 @@ export const AddCourseReviewForm = () => {
       await axios.post('/api/course-review', newReview);
     })
   );
-
-  useEffect(() => {
-    // a hacky way to prevent slatejs auto-focus
-    scrollTo(0, 0);
-  }, []);
 
   return (
     <>
@@ -211,6 +207,20 @@ export const AddCourseReviewForm = () => {
 
           <FormHelperText>
             1 is an easy course, 5 is a hard course
+          </FormHelperText>
+        </FormControl>
+
+        <FormControl isInvalid={Boolean(errors.title)}>
+          <FormLabel>Review title</FormLabel>
+
+          <Input {...register('title')} />
+
+          {errors.title && (
+            <FormErrorMessage>{errors.title.message}</FormErrorMessage>
+          )}
+
+          <FormHelperText>
+            Sum up your experience with a helpful title
           </FormHelperText>
         </FormControl>
 

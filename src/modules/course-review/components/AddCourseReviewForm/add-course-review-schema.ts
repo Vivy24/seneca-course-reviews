@@ -11,6 +11,7 @@ export const addCourseReviewSchema = z.object({
     .string()
     .array()
     .min(1, { message: 'Minimum one related professor' }),
+  title: z.string().min(1, { message: 'Review must have a title' }),
 });
 
 export type AddCourseReviewFormValues = z.infer<typeof addCourseReviewSchema>;

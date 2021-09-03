@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/button';
-import { Heading, HStack, VStack } from '@chakra-ui/layout';
+import { Heading, HStack, VStack } from '@chakra-ui/react';
 import { getErrorMessage } from '@utils/api-utils';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';

@@ -11,7 +11,7 @@ export const RatingStars = (props: Props) => {
   const stars = calculateRatingStars(max, props.value);
 
   return (
-    <Box>
+    <Box title={`Rating is ${props.value} out of ${max}`}>
       <VisuallyHidden>
         Rating is {props.value} out of {max}
       </VisuallyHidden>

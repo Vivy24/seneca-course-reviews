@@ -6,4 +6,5 @@ export type CourseReview = {
   body: Descendant[];
   difficulty: number;
   professorNameList: string[];
+  title: string;
 };

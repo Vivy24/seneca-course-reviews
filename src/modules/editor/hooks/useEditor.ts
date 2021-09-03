@@ -3,8 +3,8 @@ import { createEditor, Descendant, Element } from 'slate';
 import { withHistory } from 'slate-history';
 import { withReact } from 'slate-react';
 
-export const useEditor = () => {
-  const [value, setValue] = useState<Descendant[]>(initialValue);
+export const useEditor = (editorValue?: Descendant[]) => {
+  const [value, setValue] = useState<Descendant[]>(editorValue ?? initialValue);
   const [editor] = useState(() => withHistory(withReact(createEditor())));
 
   const onChange = setValue;
