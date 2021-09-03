@@ -6,4 +6,5 @@ export type ProfessorReview = {
   difficulty: number;
   professorName: string;
   body: Descendant[];
+  _isApproved: boolean;
 };

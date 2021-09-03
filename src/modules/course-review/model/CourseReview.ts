@@ -7,4 +7,5 @@ export type CourseReview = {
   difficulty: number;
   professorNameList: string[];
   title: string;
+  _isApproved: boolean;
 };

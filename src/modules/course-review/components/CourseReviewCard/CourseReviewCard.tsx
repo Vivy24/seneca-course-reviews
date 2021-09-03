@@ -1,6 +1,6 @@
 import { Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import { CourseReview } from '@modules/course-review';
-import { ReviewSerializer } from '@modules/slatejs/components/ReviewSerializer/ReviewSerializer';
+import { ReviewSerializer } from '@modules/slatejs/components';
 import { RatingStars } from '@ui/RatingStars';
 import { toFullDate, toISODate } from '@utils/date-utils';
 import React from 'react';

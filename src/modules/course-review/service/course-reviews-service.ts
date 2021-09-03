@@ -5,13 +5,14 @@ const collectionRef = firestore.collection('courseReviews');
 
 export class CourseReviewService {
   static async getReviews(): Promise<CourseReview[]> {
-    const snapshot = await collectionRef.get();
+    const snapshot = await collectionRef.where('_isApproved', '==', true).get();
 
     return snapshot.docs.map((doc) => doc.data() as CourseReview);
   }
 
   static async getReviewsByCourseId(courseId: string): Promise<CourseReview[]> {
     const snapshot = await collectionRef
+      .where('_isApproved', '==', true)
       .where('courseId', '==', courseId.toLowerCase())
       .get();
 

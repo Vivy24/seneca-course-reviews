@@ -250,9 +250,9 @@ export const AddCourseReviewForm = () => {
         )}
 
         {isSubmitSuccessful && (
-          <Flex gridGap="1" color="green" alignItems="center">
-            <FaCheckCircle />
-            Thank you for your contribution.
+          <Flex gridGap="1" color="green" alignItems="baseline">
+            <FaCheckCircle style={{ alignSelf: 'center' }} />
+            Thank you! Your review will appear once it is approved.
             <NextLink href="/professor-review/add" passHref>
               <Button as="a" variant="link">
                 Add a review for{' '}
