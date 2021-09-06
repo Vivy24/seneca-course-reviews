@@ -12,6 +12,7 @@ import { TResultSuccess } from '@common';
 import { CoursePreviewCard } from '@modules/course';
 import { PreviewGridList } from '@ui/PreviewGridList';
 import axios from 'axios';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import React from 'react';
@@ -75,6 +76,16 @@ const CoursesIndexPage = () => {
       </Box>
     </Box>
   );
+};
+
+type StaticProps = {};
+
+type Params = {};
+export const getStaticProps: GetStaticProps<StaticProps, Params> = async () => {
+  return {
+    props: {},
+    revalidate: 1,
+  };
 };
 
 export default CoursesIndexPage;

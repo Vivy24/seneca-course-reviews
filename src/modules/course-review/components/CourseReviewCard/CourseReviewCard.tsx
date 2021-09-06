@@ -1,4 +1,4 @@
-import { Heading, HStack, Text, VStack } from '@chakra-ui/react';
+import { Box, Divider, Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import { CourseReview } from '@modules/course-review';
 import { ReviewSerializer } from '@modules/editor';
 import { RatingStars } from '@ui/RatingStars';
@@ -10,7 +10,7 @@ type Props = {
 };
 export const CourseReviewCard = (props: Props) => {
   return (
-    <VStack align="start" as="article" maxW="min(100%, 65ch)">
+    <VStack align="start" as="article">
       <header>
         <Heading as="h3" size="md">
           {props.review.title}
@@ -29,7 +29,11 @@ export const CourseReviewCard = (props: Props) => {
         </Text>
       </header>
 
-      <ReviewSerializer value={props.review.body} />
+      <Divider />
+
+      <Box>
+        <ReviewSerializer value={props.review.body} />
+      </Box>
     </VStack>
   );
 };

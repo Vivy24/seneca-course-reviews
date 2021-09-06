@@ -1,16 +1,10 @@
-import {
-  Heading,
-  ListItem,
-  OrderedList,
-  Text,
-  UnorderedList,
-} from '@chakra-ui/react';
+import { ListItem, OrderedList, Text, UnorderedList } from '@chakra-ui/react';
 import { RenderedElements } from 'slate';
 import { RenderElementProps } from 'slate-react';
 
 const ParagraphElement = (props: RenderElementProps) => {
   return (
-    <Text mb="4" {...props.attributes}>
+    <Text mb="2" {...props.attributes}>
       {props.children}
     </Text>
   );
@@ -18,9 +12,9 @@ const ParagraphElement = (props: RenderElementProps) => {
 
 const HeadingTwoElement = (props: RenderElementProps) => {
   return (
-    <Heading as="h2" size="md" mt="3" mb="1" {...props.attributes}>
+    <Text fontWeight="bold" fontSize="larger" mb="2" {...props.attributes}>
       {props.children}
-    </Heading>
+    </Text>
   );
 };
 
@@ -38,7 +32,7 @@ const ListItemElement = (props: RenderElementProps) => {
 
 const UnorderedListElement = (props: RenderElementProps) => {
   return (
-    <UnorderedList ml="8" mt="-4" mb="4" {...props.attributes}>
+    <UnorderedList ml="8" mt="-4" mb="2" {...props.attributes}>
       {props.children}
     </UnorderedList>
   );
@@ -46,7 +40,7 @@ const UnorderedListElement = (props: RenderElementProps) => {
 
 const OrderedListElement = (props: RenderElementProps) => {
   return (
-    <OrderedList ml="8" mt="-4" mb="4" {...props.attributes}>
+    <OrderedList ml="8" mt="-4" mb="2" {...props.attributes}>
       {props.children}
     </OrderedList>
   );
