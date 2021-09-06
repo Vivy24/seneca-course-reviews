@@ -42,13 +42,17 @@ export const AddProfessorForm = () => {
   });
 
   const submitMutation: MutationHandleSubmit = useMutation(
-    handleSubmit((data) => {
-      axios.post<Professor_Index_PostData>(
+    handleSubmit(async (data) => {
+      await axios.post<Professor_Index_PostData>(
         '/api/professor',
         data as Professor_Index_PostBody
       );
     }),
-    { onSuccess: () => queryClient.invalidateQueries('professors') }
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('professors');
+      },
+    }
   );
 
   return (
