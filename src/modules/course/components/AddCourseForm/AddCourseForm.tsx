@@ -18,7 +18,6 @@ import {
   Spinner,
   useDisclosure,
 } from '@chakra-ui/react';
-import { TResultSuccess } from '@common';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AddProgramForm } from '@modules/program';
 import { AsyncFormLabel } from '@ui/AsyncFormLabel';
@@ -70,12 +69,9 @@ export function AddCourseForm() {
         sort: 'id',
       };
 
-      const res = await axios.get<TResultSuccess<Programs_Index_GetData>>(
-        '/api/programs',
-        {
-          params,
-        }
-      );
+      const res = await axios.get<Programs_Index_GetData>('/api/programs', {
+        params,
+      });
 
       return res.data.data;
     },

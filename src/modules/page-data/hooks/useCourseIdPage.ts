@@ -1,21 +1,18 @@
 import { PageData_PageData_Course_Id_GetData } from '@api/page-data/course/[id]';
-import { TResult, TResultSuccess } from '@common';
-import { Nullable } from '@utilities';
+import { AwaitTResult, Nullable } from '@utilities';
 import axios from 'axios';
 import { QueryFunctionContext, useQuery } from 'react-query';
 
 type QueryKey = [key: string, key: string, courseId: Nullable<string>];
 async function fetcher(ctx: QueryFunctionContext<QueryKey>) {
-  const res = await axios.get<
-    TResultSuccess<PageData_PageData_Course_Id_GetData>
-  >(`/api/page-data/course/${ctx.queryKey[2]}`);
+  const res = await axios.get<PageData_PageData_Course_Id_GetData>(
+    `/api/page-data/course/${ctx.queryKey[2]}`
+  );
 
   return res.data.data;
 }
 
-export function useCourseIdPage(
-  placeholderData: TResult<PageData_PageData_Course_Id_GetData>['data']
-) {
+export function useCourseIdPage(placeholderData: AwaitTResult<typeof fetcher>) {
   return useQuery(
     ['course', 'course-reviews', placeholderData?.course.courseId],
     fetcher,

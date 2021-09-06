@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Order, TResult } from '@common';
+import { Order, TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
 import { Program } from '@modules/program';
 import { ProgramService } from '@modules/program/server-index';
@@ -7,14 +7,15 @@ import { ResultSuccess } from '@utils/api-utils';
 import { sortAlphabet, sortDate } from '@utils/sort-utils';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-export type Programs_Index_GetData = Program[];
+type GetData = Program[];
+export type Programs_Index_GetData = TResultSuccess<GetData>;
 export type Programs_Index_GetQuery = Partial<{
   sort: 'id' | 'name' | 'createdDate';
   order: Order;
 }>;
 async function get(
   req: NextApiRequest,
-  res: NextApiResponse<TResult<Programs_Index_GetData>>
+  res: NextApiResponse<TResult<GetData>>
 ) {
   const query = req.query as Programs_Index_GetQuery;
   const programs = await ProgramService.getAllPrograms();

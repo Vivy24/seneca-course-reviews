@@ -2,7 +2,6 @@ import {
   CourseReviews_Index_GetData,
   CourseReviews_Index_GetQuery,
 } from '@api/course-reviews';
-import { TResultSuccess } from '@common';
 import { Nullable } from '@utilities';
 import axios from 'axios';
 import { QueryFunctionContext, useQuery } from 'react-query';
@@ -15,7 +14,7 @@ async function fetcher(ctx: QueryFunctionContext<QueryKey>) {
     courseId: ctx.queryKey[1],
   };
 
-  const res = await axios.get<TResultSuccess<CourseReviews_Index_GetData>>(
+  const res = await axios.get<CourseReviews_Index_GetData>(
     '/api/course-reviews',
     {
       params,

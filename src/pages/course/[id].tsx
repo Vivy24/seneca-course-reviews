@@ -1,4 +1,3 @@
-import { PageData_PageData_Course_Id_GetData } from '@api/page-data/course/[id]';
 import {
   Box,
   Button,
@@ -10,7 +9,9 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { TResult } from '@common';
+import { Course } from '@modules/course';
 import { CourseReviewCard } from '@modules/course-review';
+import { PopulatedCourseReview } from '@modules/course-review/service';
 import { CourseService } from '@modules/course/service';
 import { useCourseIdPage } from '@modules/page-data';
 import { PageService } from '@modules/page-data/service';
@@ -111,7 +112,10 @@ const CourseIdPage = (props: Props) => {
   );
 };
 
-type StaticProps = TResult<PageData_PageData_Course_Id_GetData>;
+type StaticProps = TResult<{
+  course: Course;
+  reviews: PopulatedCourseReview[];
+}>;
 
 type Params = {
   id: string;

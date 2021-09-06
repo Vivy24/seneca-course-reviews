@@ -1,5 +1,5 @@
 declare module '@utilities' {
-  import { TResultError } from '@common';
+  import { TResult, TResultError } from '@common';
   import { AxiosError } from 'axios';
   import React from 'react';
   import { UseMutationResult } from 'react-query';
@@ -17,4 +17,8 @@ declare module '@utilities' {
     Pick<T, RequiredKeys>;
 
   type Nullable<T> = T | undefined | null;
+
+  type Await<T> = T extends PromiseLike<infer U> ? Await<U> : T;
+
+  type AwaitTResult<T> = TResult<Await<ReturnType<T>>>['data'];
 }

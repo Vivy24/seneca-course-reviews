@@ -1,16 +1,17 @@
-import { HasMessage, TResult } from '@common';
+import { HasMessage, TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
 import { AddProgramFormValues } from '@modules/program';
 import { ProgramService } from '@modules/program/server-index';
 import { ResultError, ResultOk } from '@utils/api-utils';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export type Program_Index_PostData = HasMessage;
+type PostData = HasMessage;
+export type Program_Index_PostData = TResultSuccess<PostData>;
 export type Program_Index_PostBody = AddProgramFormValues;
 
 async function post(
   req: NextApiRequest,
-  res: NextApiResponse<TResult<Program_Index_PostData>>
+  res: NextApiResponse<TResult<PostData>>
 ) {
   const newProgram: Program_Index_PostBody = req.body;
 

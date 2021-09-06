@@ -8,8 +8,8 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { TResult, TResultSuccess } from '@common';
-import { CoursePreviewCard } from '@modules/course';
+import { TResult } from '@common';
+import { Course, CoursePreviewCard } from '@modules/course';
 import { PageService } from '@modules/page-data/service';
 import { PreviewGridList } from '@ui/PreviewGridList';
 import { handleStaticPropsError, ResultSuccess } from '@utils/api-utils';
@@ -26,7 +26,7 @@ const CoursesIndexPage = (props: Props) => {
   const coursesQuery = useQuery({
     queryKey: 'courses',
     queryFn: async () => {
-      const res = await axios.get<TResultSuccess<PageData_Courses_GetData>>(
+      const res = await axios.get<PageData_Courses_GetData>(
         '/api/page-data/courses'
       );
       return res.data.data;
@@ -82,7 +82,7 @@ const CoursesIndexPage = (props: Props) => {
   );
 };
 
-type StaticProps = TResult<PageData_Courses_GetData>;
+type StaticProps = TResult<Course[]>;
 
 type Params = {};
 export const getStaticProps: GetStaticProps<StaticProps, Params> = async () => {

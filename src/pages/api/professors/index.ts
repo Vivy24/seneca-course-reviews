@@ -1,19 +1,20 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Order, TResult } from '@common';
+import { Order, TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
 import { Professor } from '@modules/professor';
 import { ProfessorSerivce } from '@modules/professor/server-index';
 import { ResultSuccess } from '@utils/api-utils';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-export type Professors_Index_GetData = Professor[];
+type GetData = Professor[];
+export type Professors_Index_GetData = TResultSuccess<GetData>;
 export type Professors_Index_GetQuery = Partial<{
   sort: 'name' | 'createdDate';
   order: Order;
 }>;
 async function get(
   req: NextApiRequest,
-  res: NextApiResponse<TResult<Professors_Index_GetData>>
+  res: NextApiResponse<TResult<GetData>>
 ) {
   const query = req.query as Professors_Index_GetQuery;
   const professors = await ProfessorSerivce.getAllProfessors();

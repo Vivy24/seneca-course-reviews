@@ -1,4 +1,4 @@
-import { HasMessage, TResult } from '@common';
+import { HasMessage, TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
 import { AddProfessorFormValues } from '@modules/professor';
 import { ProfessorSerivce } from '@modules/professor/server-index';
@@ -6,12 +6,13 @@ import { ResultError, ResultOk } from '@utils/api-utils';
 import snakeCase from 'lodash/snakeCase';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export type Professor_Index_PostData = HasMessage;
+type PostData = HasMessage;
+export type Professor_Index_PostData = TResultSuccess<PostData>;
 export type Professor_Index_PostBody = AddProfessorFormValues;
 
 async function post(
   req: NextApiRequest,
-  res: NextApiResponse<TResult<Professor_Index_PostData>>
+  res: NextApiResponse<TResult<PostData>>
 ) {
   const newProfessor: Professor_Index_PostBody = req.body;
   const professorId = snakeCase(newProfessor.name);

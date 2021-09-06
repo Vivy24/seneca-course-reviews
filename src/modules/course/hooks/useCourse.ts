@@ -1,5 +1,4 @@
 import { Course_Id_GetData } from '@api/course/[id]';
-import { TResultSuccess } from '@common';
 import { Nullable } from '@utilities';
 import axios from 'axios';
 import { QueryFunctionContext, useQuery } from 'react-query';
@@ -8,7 +7,7 @@ import { Course } from '..';
 type QueryKey = [string, string];
 
 const fetcher = async (ctx: QueryFunctionContext<QueryKey>) => {
-  const res = await axios.get<TResultSuccess<Course_Id_GetData>>(
+  const res = await axios.get<Course_Id_GetData>(
     `/api/course/${ctx.queryKey[1]}`
   );
 

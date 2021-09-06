@@ -1,4 +1,4 @@
-import { TResult } from '@common';
+import { TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
 import { Course } from '@modules/course';
 import { PageService } from '@modules/page-data/service';
@@ -13,12 +13,13 @@ type Params = {
 /*                                     GET                                    */
 /* -------------------------------------------------------------------------- */
 
-export type PageData_Courses_GetData = Course[];
+type GetData = Course[];
+export type PageData_Courses_GetData = TResultSuccess<GetData>;
 export type PageData_Courses_GetQuery = {};
 
 async function get(
   req: NextApiRequest,
-  res: NextApiResponse<TResult<PageData_Courses_GetData>>
+  res: NextApiResponse<TResult<GetData>>
 ) {
   const courses = await PageService.getCoursesPage();
 
