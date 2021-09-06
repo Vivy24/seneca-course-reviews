@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/react';
-import { useRouteMatch } from 'hooks/useRouteMatch';
+import { useRouteMatch } from '@hooks/useRouteMatch';
 import NextLink, { LinkProps } from 'next/link';
 import { PropsWithChildren } from 'react';
 

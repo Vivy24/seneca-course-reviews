@@ -1,4 +1,4 @@
-import { TResult, TResultSuccess } from '@common';
+import { TResult } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
 import { Course } from '@modules/course';
 import { CourseService } from '@modules/course/service';
@@ -12,13 +12,13 @@ type Params = {
 /* -------------------------------------------------------------------------- */
 /*                                     GET                                    */
 /* -------------------------------------------------------------------------- */
-type GetData = Course;
-export type Course_Id_GetData = TResultSuccess<GetData>;
+
+export type Course_Id_GetData = Course;
 export type Course_Id_GetQuery = {};
 
 async function get(
   req: NextApiRequest,
-  res: NextApiResponse<TResult<GetData>>
+  res: NextApiResponse<TResult<Course_Id_GetData>>
 ) {
   const query = req.query as Course_Id_GetQuery & Params;
 

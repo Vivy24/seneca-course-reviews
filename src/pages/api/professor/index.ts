@@ -1,17 +1,16 @@
-import { HasMessage, TResult, TResultSuccess } from '@common';
+import { HasMessage, TResult } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
 import { AddProfessorFormValues } from '@modules/professor';
 import { ProfessorSerivce } from '@modules/professor/server-index';
 import { ResultOk } from '@utils/api-utils';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-type PostData = HasMessage;
-export type Professor_Index_PostData = TResultSuccess<PostData>;
+export type Professor_Index_PostData = HasMessage;
 export type Professor_Index_PostBody = AddProfessorFormValues;
 
 async function post(
   req: NextApiRequest,
-  res: NextApiResponse<TResult<PostData>>
+  res: NextApiResponse<TResult<Professor_Index_PostData>>
 ) {
   const newProfessor: Professor_Index_PostBody = req.body;
 

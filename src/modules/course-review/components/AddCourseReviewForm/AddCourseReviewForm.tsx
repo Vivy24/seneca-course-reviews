@@ -24,7 +24,7 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import { ApiError } from '@common';
+import { ApiError, TResultSuccess } from '@common';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AddCourseForm } from '@modules/course';
 import { Editor, useEditor } from '@modules/editor';
@@ -72,9 +72,12 @@ export const AddCourseReviewForm = () => {
         sortBy: 'id',
       };
 
-      const res = await axios.get<Courses_Index_GetData>('/api/courses', {
-        params,
-      });
+      const res = await axios.get<TResultSuccess<Courses_Index_GetData>>(
+        '/api/courses',
+        {
+          params,
+        }
+      );
 
       return res.data.data;
     },
@@ -88,9 +91,12 @@ export const AddCourseReviewForm = () => {
         sort: 'name',
       };
 
-      const res = await axios.get<Professors_Index_GetData>('/api/professors', {
-        params,
-      });
+      const res = await axios.get<TResultSuccess<Professors_Index_GetData>>(
+        '/api/professors',
+        {
+          params,
+        }
+      );
 
       return res.data.data;
     },

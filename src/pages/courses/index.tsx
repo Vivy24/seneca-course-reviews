@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
+import { TResultSuccess } from '@common';
 import { CoursePreviewCard } from '@modules/course';
 import { PreviewGridList } from '@ui/PreviewGridList';
 import axios from 'axios';
@@ -21,7 +22,9 @@ const CoursesIndexPage = () => {
   const coursesQuery = useQuery({
     queryKey: 'courses',
     queryFn: async () => {
-      const res = await axios.get<Courses_Index_GetData>('/api/courses');
+      const res = await axios.get<TResultSuccess<Courses_Index_GetData>>(
+        '/api/courses'
+      );
       return res.data.data;
     },
   });
