@@ -62,7 +62,7 @@ export const AddCourseReviewForm = () => {
   } = useForm<AddCourseReviewFormValues>({
     resolver: zodResolver(addCourseReviewSchema),
   });
-  const professorNameList = watch('professorNameList');
+  const professorIdList = watch('professorIdList');
   const courseId = watch('courseId');
 
   const coursesQuery = useQuery({
@@ -107,7 +107,6 @@ export const AddCourseReviewForm = () => {
     handleSubmit(async (data) => {
       const newReview: CourseReviews_Index_PostBody = {
         ...data,
-        _createdAt: new Date().toISOString(),
         body: slate.value,
       };
 
@@ -163,7 +162,7 @@ export const AddCourseReviewForm = () => {
           </FormHelperText>
         </FormControl>
 
-        <FormControl isInvalid={Boolean(errors.professorNameList)}>
+        <FormControl isInvalid={Boolean(errors.professorIdList)}>
           <FormLabel>
             {professorsQuery.isFetching ? (
               <Text as="span">
@@ -177,19 +176,19 @@ export const AddCourseReviewForm = () => {
           <Select
             iconSize="0"
             multiple
-            {...register('professorNameList')}
+            {...register('professorIdList')}
             height="32"
           >
             {professorsQuery.data?.map((professor) => (
-              <option key={professor.name} value={professor.name}>
+              <option key={professor.name} value={professor.id}>
                 {professor.name}
               </option>
             ))}
           </Select>
 
-          {errors.professorNameList && (
+          {errors.professorIdList && (
             <FormErrorMessage>
-              {errors.professorNameList.message}
+              {errors.professorIdList.message}
             </FormErrorMessage>
           )}
 
@@ -268,11 +267,7 @@ export const AddCourseReviewForm = () => {
             Thank you! Your review will appear once it is approved.
             <NextLink href="/professor-review/add" passHref>
               <Button as="a" variant="link">
-                Add a review for{' '}
-                <Text fontStyle="italic" ml="1">
-                  {professorNameList.join(', ')}
-                </Text>
-                ?
+                Add reviews for professors?
               </Button>
             </NextLink>
           </Flex>

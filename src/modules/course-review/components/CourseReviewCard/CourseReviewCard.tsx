@@ -1,12 +1,24 @@
-import { Box, Divider, Heading, HStack, Text, VStack } from '@chakra-ui/react';
-import { CourseReview } from '@modules/course-review';
+import {
+  Box,
+  Divider,
+  Heading,
+  HStack,
+  Link,
+  ListItem,
+  Tag,
+  Text,
+  UnorderedList,
+  VStack,
+} from '@chakra-ui/react';
+import { PopulatedCourseReview } from '@modules/course-review/service';
 import { ReviewSerializer } from '@modules/editor';
 import { RatingStars } from '@ui/RatingStars';
 import { toFullDate, toISODate } from '@utils/date-utils';
+import NextLink from 'next/link';
 import React from 'react';
 
 type Props = {
-  review: CourseReview;
+  review: PopulatedCourseReview;
 };
 export const CourseReviewCard = (props: Props) => {
   return (
@@ -19,6 +31,21 @@ export const CourseReviewCard = (props: Props) => {
         <HStack>
           <Text>Difficulty:</Text>
           <RatingStars value={props.review.difficulty} />
+        </HStack>
+
+        <HStack>
+          <Text>Professors:</Text>
+          <UnorderedList display="flex" listStyleType="none" gridGap="1">
+            {props.review.professors.map((professor) => (
+              <ListItem key={professor.id}>
+                <NextLink href={`/professor/${professor.id}`} passHref>
+                  <Link>
+                    <Tag colorScheme="purple">{professor.name}</Tag>
+                  </Link>
+                </NextLink>
+              </ListItem>
+            ))}
+          </UnorderedList>
         </HStack>
 
         <Text>

@@ -2,7 +2,8 @@ import { HasMessage, TResult } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
 import { AddProfessorFormValues } from '@modules/professor';
 import { ProfessorSerivce } from '@modules/professor/server-index';
-import { ResultOk } from '@utils/api-utils';
+import { ResultError, ResultOk } from '@utils/api-utils';
+import snakeCase from 'lodash/snakeCase';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export type Professor_Index_PostData = HasMessage;
@@ -13,8 +14,17 @@ async function post(
   res: NextApiResponse<TResult<Professor_Index_PostData>>
 ) {
   const newProfessor: Professor_Index_PostBody = req.body;
+  const professorId = snakeCase(newProfessor.name);
 
-  await ProfessorSerivce.addProfessor(newProfessor);
+  if (await ProfessorSerivce.isProfessorExist(professorId)) {
+    return res.status(422).json(ResultError('Professor exists!'));
+  }
+
+  await ProfessorSerivce.addProfessor({
+    ...newProfessor,
+    id: professorId,
+  });
+
   return res.status(201).json(ResultOk());
 }
 

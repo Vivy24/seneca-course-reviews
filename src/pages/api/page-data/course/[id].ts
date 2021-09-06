@@ -1,7 +1,7 @@
 import { TResult } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
 import { Course } from '@modules/course';
-import { CourseReview } from '@modules/course-review';
+import { PopulatedCourseReview } from '@modules/course-review/service';
 import { PageService } from '@modules/page-data/service';
 import { ResultNotFound, ResultSuccess } from '@utils/api-utils';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -16,7 +16,7 @@ type Params = {
 
 export type PageData_PageData_Course_Id_GetData = {
   course: Course;
-  reviews: CourseReview[];
+  reviews: PopulatedCourseReview[];
 };
 export type PageData_Course_Id_GetQuery = {};
 

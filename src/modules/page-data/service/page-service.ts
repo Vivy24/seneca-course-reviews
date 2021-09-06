@@ -7,13 +7,14 @@ export class PageService {
     const course = await CourseService.getCourse(courseId);
 
     const reviews = await CourseReviewService.getReviewsByCourseId(courseId);
+    const populatedReviews = await CourseReviewService.populateReviews(reviews);
 
-    CourseReviewService.formatCourseReviews(reviews, {
+    CourseReviewService.formatCourseReviews(populatedReviews, {
       sortBy: 'createdDate',
       order: 'desc',
     });
 
-    return { course, reviews };
+    return { course, reviews: populatedReviews };
   }
 
   static async getCoursesPage(): Promise<Course[]> {

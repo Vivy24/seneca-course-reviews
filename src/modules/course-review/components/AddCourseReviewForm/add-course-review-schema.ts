@@ -7,7 +7,7 @@ export const addCourseReviewSchema = z.object({
     .transform((val) => +val)
     .refine((val) => val <= 5, { message: 'Maximum value is 5' })
     .refine((val) => val >= 1, { message: 'Minimum value is 1' }),
-  professorNameList: z
+  professorIdList: z
     .string()
     .array()
     .min(1, { message: 'Minimum one related professor' }),

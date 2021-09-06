@@ -1,11 +1,8 @@
 import { Descendant } from 'slate';
+import { AddCourseReviewFormValues } from '..';
 
-export type CourseReview = {
+export type CourseReview = AddCourseReviewFormValues & {
   _createdAt: string;
-  courseId: string;
-  body: Descendant[];
-  difficulty: number;
-  professorNameList: string[];
-  title: string;
   _isApproved: boolean;
+  body: Descendant[];
 };
