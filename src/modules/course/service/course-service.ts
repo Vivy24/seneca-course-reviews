@@ -1,7 +1,7 @@
 import { PartiallyPartial } from '@utilities';
 import { firestore as admin } from 'firebase-admin';
 import { firestore } from 'src/lib/firebase/firebase';
-import { Course } from '..';
+import { Course, CoursesFormatOptions, sortCourses } from '..';
 
 const collectionRef = firestore.collection('course');
 
@@ -43,5 +43,11 @@ export class CourseService {
       courseId: courseId.toLowerCase(),
       programIdList: updatedList,
     });
+  }
+
+  static formatCourses(courses: Course[], options: CoursesFormatOptions): void {
+    if (options.sortBy) {
+      sortCourses(courses, options);
+    }
   }
 }

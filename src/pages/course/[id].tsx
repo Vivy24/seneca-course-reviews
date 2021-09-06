@@ -1,3 +1,4 @@
+import { Courses_Index_GetData, Courses_Index_GetQuery } from '@api/courses';
 import {
   Box,
   Button,
@@ -16,11 +17,25 @@ import { CourseService } from '@modules/course/service';
 import { ReviewCardList } from '@ui/ReviewCardList';
 import { WithDataFetchingPage } from '@ui/WithDataFetchingPage';
 import { handleStaticPropsError, ResultSuccess } from '@utils/api-utils';
+import axios from 'axios';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import React from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
+
+const queryOptions: Courses_Index_GetQuery = {
+  order: 'desc',
+  sortBy: 'createdDate',
+};
+
+async function coursesFetcher() {
+  const res = await axios.get<Courses_Index_GetData>('/api/courses', {
+    params: queryOptions,
+  });
+
+  return res.data.data;
+}
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -129,6 +144,8 @@ export const getStaticProps: GetStaticProps<StaticProps, Params> = async ({
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const courses = await CourseService.getAllCourses();
+
+  CourseService.formatCourses(courses);
 
   const paths = courses.map((course) => ({
     params: {
