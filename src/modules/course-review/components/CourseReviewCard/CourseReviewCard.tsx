@@ -35,12 +35,19 @@ export const CourseReviewCard = (props: Props) => {
 
         <HStack>
           <Text>Professors:</Text>
-          <UnorderedList display="flex" listStyleType="none" gridGap="1">
+          <UnorderedList
+            display="flex"
+            flexWrap="wrap"
+            listStyleType="none"
+            gridGap="1"
+          >
             {props.review.professors.map((professor) => (
               <ListItem key={professor.id}>
                 <NextLink href={`/professor/${professor.id}`} passHref>
                   <Link>
-                    <Tag colorScheme="purple">{professor.name}</Tag>
+                    <Tag wordBreak="break-all" colorScheme="purple">
+                      {professor.name}
+                    </Tag>
                   </Link>
                 </NextLink>
               </ListItem>

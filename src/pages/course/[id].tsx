@@ -74,14 +74,14 @@ const CourseIdPage = (props: Props) => {
             </VStack>
 
             <Box mt={10}>
-              <HStack>
-                <Heading as="h2">Course reviews</Heading>
+              <HStack wrap="wrap" spacing="0">
+                <Heading as="h2" mr="3">
+                  Course reviews
+                </Heading>
 
                 <NextLink href="/course-review/add" passHref>
                   <Button
                     as="a"
-                    rounded="full"
-                    aria-label="Add a review"
                     display="inline-flex"
                     alignItems="center"
                     gridGap="2"
