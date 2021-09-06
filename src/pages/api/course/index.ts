@@ -4,6 +4,7 @@ import { AddCourseFormValues } from '@modules/course';
 import { CourseService } from '@modules/course/server-index';
 import { ResultError, ResultOk } from '@utils/api-utils';
 import difference from 'lodash/difference';
+import snakeCase from 'lodash/snakeCase';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 /* -------------------------------------------------------------------------- */
@@ -18,10 +19,11 @@ async function post(
   res: NextApiResponse<TResult<PostData>>
 ) {
   const newCourse: Course_Index_PostBody = req.body;
+  const id = snakeCase(newCourse.code);
 
-  const course = await CourseService.getCourse(newCourse.courseId);
+  const course = await CourseService.getCourse(id);
   if (course === null) {
-    await CourseService.addCourse(newCourse);
+    await CourseService.addCourse({ ...newCourse, id });
     return res.status(201).json(ResultOk());
   }
 
@@ -31,10 +33,7 @@ async function post(
   );
 
   if (programIdDifferenceList.length > 0) {
-    await CourseService.addProgramsToCourse(
-      course.courseId,
-      programIdDifferenceList
-    );
+    await CourseService.addProgramsToCourse(course.id, programIdDifferenceList);
 
     return res.status(200).json(ResultOk());
   }

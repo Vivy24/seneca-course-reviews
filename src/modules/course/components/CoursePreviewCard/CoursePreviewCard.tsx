@@ -18,9 +18,9 @@ type Props = {
 export const CoursePreviewCard = ({ course }: Props) => {
   return (
     <Stack as="article" width="max-content">
-      <NextLink href={`/course/${course.courseId}`} passHref>
+      <NextLink href={`/course/${course.id}`} passHref>
         <Link>
-          <Heading size="lg">{course.courseId.toUpperCase()}</Heading>
+          <Heading size="lg">{course.id.toUpperCase()}</Heading>
         </Link>
       </NextLink>
 

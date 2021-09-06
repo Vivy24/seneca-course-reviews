@@ -12,11 +12,11 @@ export function sortCourses(
 ) {
   switch (options.sortBy) {
     case 'id':
-      courses.sort((a, b) => a.courseId.localeCompare(b.courseId));
+      courses.sort((a, b) => a.id.localeCompare(b.id));
       break;
 
     case 'name':
-      courses.sort((a, b) => a.courseName.localeCompare(b.courseName));
+      courses.sort((a, b) => a.code.localeCompare(b.code));
       break;
 
     case 'createdDate':

@@ -2,7 +2,7 @@ import { PartiallyPartial } from '@utilities';
 import { firestore } from 'src/lib/firebase/firebase';
 import { Program } from '../model/Program';
 
-const collectionRef = firestore.collection('program');
+const collectionRef = firestore.collection('programs');
 
 export class ProgramService {
   static async getProgram(courseId: string): Promise<Program | null> {

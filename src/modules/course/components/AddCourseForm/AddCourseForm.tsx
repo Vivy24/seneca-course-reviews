@@ -88,28 +88,28 @@ export function AddCourseForm() {
         gridGap="5"
         alignItems="start"
       >
-        <FormControl id="course-id" isInvalid={Boolean(errors.courseId)}>
+        <FormControl id="course-id" isInvalid={Boolean(errors.code)}>
           <FormLabel>
-            Course ID
+            Course code
             <FieldRequiredSymbol />
           </FormLabel>
 
-          <Input type="text" {...register('courseId')} />
+          <Input type="text" {...register('code')} />
 
-          <FormErrorMessage>{errors.courseId?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors.code?.message}</FormErrorMessage>
 
           <FormHelperText>e.g. ULI101, IPC144, etc.</FormHelperText>
         </FormControl>
 
-        <FormControl id="course-name" isInvalid={Boolean(errors.courseName)}>
+        <FormControl id="course-name" isInvalid={Boolean(errors.name)}>
           <FormLabel>
             Course name
             <FieldRequiredSymbol />
           </FormLabel>
 
-          <Input type="text" {...register('courseName')} />
+          <Input type="text" {...register('name')} />
 
-          <FormErrorMessage>{errors.courseName?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
 
           <FormHelperText>
             e.g. Introduction to UNIX/Linux and the Internet

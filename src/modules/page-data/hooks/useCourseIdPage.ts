@@ -14,7 +14,7 @@ async function fetcher(ctx: QueryFunctionContext<QueryKey>) {
 
 export function useCourseIdPage(placeholderData: AwaitTResult<typeof fetcher>) {
   return useQuery(
-    ['course', 'course-reviews', placeholderData?.course.courseId],
+    ['course', 'course-reviews', placeholderData?.course.id],
     fetcher,
     {
       placeholderData,

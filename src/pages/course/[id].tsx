@@ -39,7 +39,7 @@ const CourseIdPage = (props: Props) => {
         <Box>
           <Head>
             <title>
-              {data.course.courseId.toUpperCase()} | Vietnamese ICT at Seneca
+              {data.course.code.toUpperCase()} | Vietnamese ICT at Seneca
               College
             </title>
           </Head>
@@ -49,7 +49,7 @@ const CourseIdPage = (props: Props) => {
 
             <VStack mt="3" as="header" align="flex-start">
               <Heading as="h1" size="4xl">
-                {data.course.courseId.toUpperCase()}
+                {data.course.code.toUpperCase()}
               </Heading>
 
               <Text
@@ -58,7 +58,7 @@ const CourseIdPage = (props: Props) => {
                   xl: '2xl',
                 }}
               >
-                {data.course.courseName}
+                {data.course.name}
               </Text>
 
               <HStack as="ul" listStyleType="none">
@@ -144,7 +144,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 
   const paths = courses.map((course) => ({
     params: {
-      id: course.courseId,
+      id: course.id,
     },
   }));
 

@@ -15,7 +15,7 @@ const fetcher = async (ctx: QueryFunctionContext<QueryKey>) => {
 };
 
 export function useCourse(course: Nullable<Course>) {
-  const result = useQuery(['course', course!.courseId], fetcher, {
+  const result = useQuery(['course', course!.id], fetcher, {
     enabled: Boolean(course),
     placeholderData: course,
   });

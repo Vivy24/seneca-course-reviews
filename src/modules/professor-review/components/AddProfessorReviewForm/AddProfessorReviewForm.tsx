@@ -165,8 +165,8 @@ export const AddProfessorReviewForm = () => {
             <option value=""></option>
 
             {coursesQuery.data?.map((course) => (
-              <option key={course.courseId} value={course.courseId}>
-                {`${course.courseId.toUpperCase()} - ${course.courseName}`}
+              <option key={course.id} value={course.id}>
+                {`${course.code.toUpperCase()} - ${course.name}`}
               </option>
             ))}
           </Select>

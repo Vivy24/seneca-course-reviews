@@ -3,7 +3,7 @@ import { firestore as admin } from 'firebase-admin';
 import { firestore } from 'src/lib/firebase/firebase';
 import { Course, CoursesFormatOptions, sortCourses } from '..';
 
-const collectionRef = firestore.collection('course');
+const collectionRef = firestore.collection('courses');
 
 export class CourseService {
   static async getCourse(courseId: string): Promise<Course | null> {
@@ -27,11 +27,11 @@ export class CourseService {
   }
 
   static async addCourse(course: Course) {
-    collectionRef.doc(course.courseId.toLowerCase()).set(course);
+    collectionRef.doc(course.id.toLowerCase()).set(course);
   }
 
-  static async updateCourse(course: PartiallyPartial<Course, 'courseId'>) {
-    collectionRef.doc(course.courseId.toLowerCase()).update(course);
+  static async updateCourse(course: PartiallyPartial<Course, 'id'>) {
+    collectionRef.doc(course.id.toLowerCase()).update(course);
   }
 
   static async addProgramsToCourse(courseId: string, programIdList: string[]) {
@@ -40,7 +40,7 @@ export class CourseService {
     ) as unknown as string[];
 
     this.updateCourse({
-      courseId: courseId.toLowerCase(),
+      id: courseId.toLowerCase(),
       programIdList: updatedList,
     });
   }

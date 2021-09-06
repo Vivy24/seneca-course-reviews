@@ -65,7 +65,7 @@ const CoursesIndexPage = (props: Props) => {
             </Stack>
 
             {coursesQuery.data?.map((course) => (
-              <CoursePreviewCard key={course.courseId} course={course} />
+              <CoursePreviewCard key={course.id} course={course} />
             ))}
           </PreviewGridList>
         )}
