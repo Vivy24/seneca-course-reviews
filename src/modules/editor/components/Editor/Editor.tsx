@@ -57,7 +57,6 @@ function Editor() {
           <MarkButton format="italic" />
           <MarkButton format="underline" />
 
-          <BlockButton format="h1" />
           <BlockButton format="h2" />
           <BlockButton format="list-ol" />
           <BlockButton format="list-ul" />

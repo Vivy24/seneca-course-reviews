@@ -17,7 +17,6 @@ export const MARK_HOTKEYS: Record<string, MarkFormat> = {
 };
 
 export const BLOCK_HOTKEYS: Record<string, BlockFormat> = {
-  'mod+1': 'h1',
   'mod+2': 'h2',
 };
 //#endregion

@@ -16,14 +16,6 @@ const ParagraphElement = (props: RenderElementProps) => {
   );
 };
 
-const HeadingOneElement = (props: RenderElementProps) => {
-  return (
-    <Heading as="h1" size="xl" mt="5" mb="2" {...props.attributes}>
-      {props.children}
-    </Heading>
-  );
-};
-
 const HeadingTwoElement = (props: RenderElementProps) => {
   return (
     <Heading as="h2" size="md" mt="3" mb="1" {...props.attributes}>
@@ -62,7 +54,6 @@ const OrderedListElement = (props: RenderElementProps) => {
 
 const elements: RenderedElements = {
   paragraph: ParagraphElement,
-  h1: HeadingOneElement,
   h2: HeadingTwoElement,
   'block-quote': BlockQuoteElement,
   'list-item': ListItemElement,

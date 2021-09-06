@@ -14,6 +14,7 @@ import { CourseReviewCard } from '@modules/course-review';
 import { CourseService } from '@modules/course/service';
 import { useCourseIdPage } from '@modules/page-data';
 import { PageService } from '@modules/page-data/service';
+import GoBackButton from '@ui/GoBackButton';
 import { ReviewCardList } from '@ui/ReviewCardList';
 import { WithDataFetchingPage } from '@ui/WithDataFetchingPage';
 import { handleStaticPropsError, ResultSuccess } from '@utils/api-utils';
@@ -43,7 +44,9 @@ const CourseIdPage = (props: Props) => {
           </Head>
 
           <Box>
-            <VStack as="header" align="flex-start">
+            <GoBackButton />
+
+            <VStack mt="3" as="header" align="flex-start">
               <Heading as="h1" size="4xl">
                 {data.course.courseId.toUpperCase()}
               </Heading>
