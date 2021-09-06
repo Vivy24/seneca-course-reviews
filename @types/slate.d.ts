@@ -1,7 +1,9 @@
+import { PartiallyPartial } from '@utilities';
+import { VFC } from 'react';
 import 'slate';
 import { BaseEditor, Element, Text } from 'slate';
 import { HistoryEditor } from 'slate-history';
-import { ReactEditor } from 'slate-react';
+import { ReactEditor, RenderElementProps } from 'slate-react';
 
 type FormatableText = {
   text: string;
@@ -51,4 +53,9 @@ declare module 'slate' {
 
   type MarkFormat = keyof Omit<Text, 'text'>;
   type BlockFormat = Element['type'];
+
+  export type RenderedElements = PartiallyPartial<
+    Record<Element['type'], VFC<RenderElementProps>>,
+    'paragraph'
+  >;
 }

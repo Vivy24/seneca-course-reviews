@@ -6,12 +6,14 @@ declare module '@common' {
     type: 'error';
     error: HasMessage | Error;
     timestamp: string;
+    data: null;
   };
 
   type TResultSuccess<Data = unknown> = {
     type: 'success';
     data: Data;
     timestamp: string;
+    error: null;
   };
 
   type TResult<Data = unknown> = TResultSuccess<Data> | TResultError;

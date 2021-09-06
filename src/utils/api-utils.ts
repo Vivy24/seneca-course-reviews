@@ -8,6 +8,7 @@ export function ResultError(message: string): TResultError {
     type: 'error',
     error: { message },
     timestamp: new Date().toISOString(),
+    data: null,
   };
 }
 
@@ -18,6 +19,7 @@ export function ResultSuccess<Data = unknown>(
     type: 'success',
     data,
     timestamp: new Date().toISOString(),
+    error: null,
   };
 }
 

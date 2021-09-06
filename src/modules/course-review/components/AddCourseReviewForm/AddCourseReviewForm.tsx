@@ -36,7 +36,7 @@ import NextLink from 'next/link';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FaBan, FaCheckCircle } from 'react-icons/fa';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Slate } from 'slate-react';
 import {
   AddCourseReviewFormValues,
@@ -45,6 +45,7 @@ import {
 
 export const AddCourseReviewForm = () => {
   const slate = useEditor();
+  const queryClient = useQueryClient();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -62,12 +63,13 @@ export const AddCourseReviewForm = () => {
     resolver: zodResolver(addCourseReviewSchema),
   });
   const professorNameList = watch('professorNameList');
+  const courseId = watch('courseId');
 
   const coursesQuery = useQuery({
     queryKey: 'courses',
     queryFn: async () => {
       const params: Courses_Index_GetQuery = {
-        sort: 'id',
+        sortBy: 'id',
       };
 
       const res = await axios.get<Courses_Index_GetData>('/api/courses', {
@@ -104,7 +106,12 @@ export const AddCourseReviewForm = () => {
       };
 
       await axios.post('/api/course-review', newReview);
-    })
+    }),
+    {
+      onSuccess: function () {
+        queryClient.invalidateQueries(['course-reviews', courseId]);
+      },
+    }
   );
 
   return (

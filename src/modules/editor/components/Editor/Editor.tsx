@@ -3,7 +3,7 @@ import isHotkey from 'is-hotkey';
 import React, { KeyboardEventHandler, useCallback } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { Editable, useSlate } from 'slate-react';
-import { BlockButton, MarkButton, renderElement, renderLeaf } from '..';
+import { BlockButton, MarkButton, renderLeaf, renderReviewRichText } from '..';
 import {
   BLOCK_HOTKEYS,
   MARK_HOTKEYS,
@@ -13,7 +13,7 @@ import {
 } from '../..';
 
 function Editor() {
-  const memoRenderElement = useCallback(renderElement, []);
+  const memoRenderElement = useCallback(renderReviewRichText, []);
   const memoRenderLeaf = useCallback(renderLeaf, []);
   const editor = useSlate();
 

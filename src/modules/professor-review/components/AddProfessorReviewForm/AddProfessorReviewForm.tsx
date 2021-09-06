@@ -67,7 +67,7 @@ export const AddProfessorReviewForm = () => {
     queryKey: 'courses',
     queryFn: async () => {
       const params: Courses_Index_GetQuery = {
-        sort: 'id',
+        sortBy: 'id',
       };
 
       const res = await axios.get<Courses_Index_GetData>('/api/courses', {

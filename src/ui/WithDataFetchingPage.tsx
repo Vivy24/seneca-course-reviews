@@ -1,21 +1,21 @@
 import { HStack, Text } from '@chakra-ui/react';
 import { Spinner } from '@chakra-ui/spinner';
-import { TResult } from '@common';
+import { Nullable } from '@utilities';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
 import { ErrorScreen } from './ErrorScreen';
 
 type Props<Data> = {
-  result: TResult<Data>;
+  data: Nullable<Data>;
+  error: unknown;
   children(data: Data): ReactNode;
 };
 export function WithDataFetchingPage<Data = unknown>(props: Props<Data>) {
   const { isFallback } = useRouter();
 
-  if (props.result.type === 'error')
-    return <ErrorScreen error={props.result.error} />;
+  if (props.error) return <ErrorScreen error={props.error} />;
 
-  if (isFallback || !props.result.data)
+  if (isFallback || !props.data)
     return (
       <HStack>
         <Spinner />
@@ -23,5 +23,5 @@ export function WithDataFetchingPage<Data = unknown>(props: Props<Data>) {
       </HStack>
     );
 
-  return <>{props.children(props.result.data)}</>;
+  return <>{props.children(props.data)}</>;
 }

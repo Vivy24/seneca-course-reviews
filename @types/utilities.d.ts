@@ -15,4 +15,6 @@ declare module '@utilities' {
     Omit<T, RequiredKeys>
   > &
     Pick<T, RequiredKeys>;
+
+  type Nullable<T> = T | undefined | null;
 }

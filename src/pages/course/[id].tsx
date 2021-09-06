@@ -1,4 +1,4 @@
-import { Courses_Index_GetData, Courses_Index_GetQuery } from '@api/courses';
+import { PageData_PageData_Course_Id_GetData } from '@api/page-data/course/[id]';
 import {
   Box,
   Button,
@@ -10,38 +10,29 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { TResult } from '@common';
-import { Course } from '@modules/course';
-import { CourseReview, CourseReviewCard } from '@modules/course-review';
-import { CourseReviewService } from '@modules/course-review/service';
+import { CourseReviewCard } from '@modules/course-review';
 import { CourseService } from '@modules/course/service';
+import { useCourseIdPage } from '@modules/page-data';
+import { PageService } from '@modules/page-data/service';
 import { ReviewCardList } from '@ui/ReviewCardList';
 import { WithDataFetchingPage } from '@ui/WithDataFetchingPage';
 import { handleStaticPropsError, ResultSuccess } from '@utils/api-utils';
-import axios from 'axios';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import React from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 
-const queryOptions: Courses_Index_GetQuery = {
-  order: 'desc',
-  sortBy: 'createdDate',
-};
-
-async function coursesFetcher() {
-  const res = await axios.get<Courses_Index_GetData>('/api/courses', {
-    params: queryOptions,
-  });
-
-  return res.data.data;
-}
-
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const CourseIdPage = (props: Props) => {
+  const result = useCourseIdPage(props.data);
+
   return (
-    <WithDataFetchingPage result={props}>
+    <WithDataFetchingPage
+      data={result.data}
+      error={props.error ?? result.error}
+    >
       {(data) => (
         <Box>
           <Head>
@@ -117,7 +108,7 @@ const CourseIdPage = (props: Props) => {
   );
 };
 
-type StaticProps = TResult<{ course: Course; reviews: CourseReview[] }>;
+type StaticProps = TResult<PageData_PageData_Course_Id_GetData>;
 
 type Params = {
   id: string;
@@ -129,9 +120,8 @@ export const getStaticProps: GetStaticProps<StaticProps, Params> = async ({
     const courseId = params?.id;
     if (!courseId) return handleStaticPropsError("Missing course's id");
 
-    const course = await CourseService.getCourse(courseId);
+    const { course, reviews } = await PageService.getCourseIdPage(courseId);
     if (!course) return handleStaticPropsError('Course not found');
-    const reviews = await CourseReviewService.getReviewsByCourseId(courseId);
 
     return {
       props: ResultSuccess({ course, reviews }),
@@ -144,8 +134,6 @@ export const getStaticProps: GetStaticProps<StaticProps, Params> = async ({
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
   const courses = await CourseService.getAllCourses();
-
-  CourseService.formatCourses(courses);
 
   const paths = courses.map((course) => ({
     params: {

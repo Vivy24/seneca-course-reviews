@@ -1,4 +1,4 @@
-import { HasMessage, TResult } from '@common';
+import { HasMessage, TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
 import { AddCourseFormValues } from '@modules/course';
 import { CourseService } from '@modules/course/server-index';
@@ -6,8 +6,11 @@ import { ResultError, ResultOk } from '@utils/api-utils';
 import difference from 'lodash/difference';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+/* -------------------------------------------------------------------------- */
+/*                                    POST                                    */
+/* -------------------------------------------------------------------------- */
 type PostData = HasMessage;
-export type Course_Index_PostData = PostData;
+export type Course_Index_PostData = TResultSuccess<PostData>;
 export type Course_Index_PostBody = AddCourseFormValues;
 
 async function post(
