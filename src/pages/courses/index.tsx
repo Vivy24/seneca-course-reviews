@@ -1,4 +1,4 @@
-import { Courses_Index_GetData } from '@api/courses';
+import { PageData_Courses_GetData } from '@api/page-data/courses';
 import {
   Box,
   Heading,
@@ -8,26 +8,30 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { TResultSuccess } from '@common';
+import { TResult, TResultSuccess } from '@common';
 import { CoursePreviewCard } from '@modules/course';
+import { PageService } from '@modules/page-data/service';
 import { PreviewGridList } from '@ui/PreviewGridList';
+import { handleStaticPropsError, ResultSuccess } from '@utils/api-utils';
 import axios from 'axios';
-import { GetStaticProps } from 'next';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { useQuery } from 'react-query';
 
-const CoursesIndexPage = () => {
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
+const CoursesIndexPage = (props: Props) => {
   const coursesQuery = useQuery({
     queryKey: 'courses',
     queryFn: async () => {
-      const res = await axios.get<TResultSuccess<Courses_Index_GetData>>(
-        '/api/courses'
+      const res = await axios.get<TResultSuccess<PageData_Courses_GetData>>(
+        '/api/page-data/courses'
       );
       return res.data.data;
     },
+    placeholderData: props.data,
   });
 
   return (
@@ -78,14 +82,20 @@ const CoursesIndexPage = () => {
   );
 };
 
-type StaticProps = {};
+type StaticProps = TResult<PageData_Courses_GetData>;
 
 type Params = {};
 export const getStaticProps: GetStaticProps<StaticProps, Params> = async () => {
-  return {
-    props: {},
-    revalidate: 1,
-  };
+  try {
+    const courses = await PageService.getCoursesPage();
+
+    return {
+      props: ResultSuccess(courses),
+      revalidate: 60,
+    };
+  } catch (error) {
+    return handleStaticPropsError(error);
+  }
 };
 
 export default CoursesIndexPage;
