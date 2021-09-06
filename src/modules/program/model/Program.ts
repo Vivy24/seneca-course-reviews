@@ -1,5 +1,3 @@
-export type Program = {
-  name: string;
-  id: string;
-  _createdAt: string;
-};
+import { AddProgramFormValues } from '..';
+
+export type Program = AddProgramFormValues & { id: string };

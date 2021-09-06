@@ -20,7 +20,7 @@ export const CoursePreviewCard = ({ course }: Props) => {
     <Stack as="article" width="max-content">
       <NextLink href={`/course/${course.id}`} passHref>
         <Link>
-          <Heading size="lg">{course.id.toUpperCase()}</Heading>
+          <Heading size="lg">{course.code.toUpperCase()}</Heading>
         </Link>
       </NextLink>
 

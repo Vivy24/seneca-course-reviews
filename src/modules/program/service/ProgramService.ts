@@ -5,8 +5,8 @@ import { Program } from '../model/Program';
 const collectionRef = firestore.collection('programs');
 
 export class ProgramService {
-  static async getProgram(courseId: string): Promise<Program | null> {
-    const snapshot = await collectionRef.doc(courseId).get();
+  static async getProgram(programId: string): Promise<Program | null> {
+    const snapshot = await collectionRef.doc(programId).get();
 
     if (!snapshot.exists) return null;
 
@@ -19,8 +19,8 @@ export class ProgramService {
     return snapshot.docs.map((doc) => doc.data() as Program);
   }
 
-  static async isProgramExist(courseId: string): Promise<boolean> {
-    const course = await this.getProgram(courseId);
+  static async isProgramExist(programId: string): Promise<boolean> {
+    const course = await this.getProgram(programId);
 
     return course !== null;
   }

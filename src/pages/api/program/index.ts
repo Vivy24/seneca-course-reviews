@@ -3,6 +3,7 @@ import { withApiHandler } from '@lib/api/withApiHandler';
 import { AddProgramFormValues } from '@modules/program';
 import { ProgramService } from '@modules/program/server-index';
 import { ResultError, ResultOk } from '@utils/api-utils';
+import snakeCase from 'lodash/snakeCase';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 type PostData = HasMessage;
@@ -14,11 +15,12 @@ async function post(
   res: NextApiResponse<TResult<PostData>>
 ) {
   const newProgram: Program_Index_PostBody = req.body;
+  const id = snakeCase(newProgram.code);
 
-  if (await ProgramService.isProgramExist(newProgram.id))
+  if (await ProgramService.isProgramExist(id))
     return res.status(422).json(ResultError('Program exists'));
 
-  await ProgramService.addProgram(newProgram);
+  await ProgramService.addProgram({ ...newProgram, id });
   return res.status(201).json(ResultOk());
 }
 

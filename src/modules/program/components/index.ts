@@ -1,2 +1,2 @@
+export * from './AddProgramForm/add-program-schema';
 export * from './AddProgramForm/AddProgramForm';
-export * from './AddProgramForm/AddProgramFormValues';

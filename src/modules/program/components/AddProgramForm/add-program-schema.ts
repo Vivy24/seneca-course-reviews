@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const addProgramFormSchema = z.object({
-  id: z
+  code: z
     .string()
     .min(1, { message: 'Cannot be empty' })
     .transform((val) => val.toLowerCase()),

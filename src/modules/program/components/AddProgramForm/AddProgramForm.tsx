@@ -21,7 +21,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import {
   addProgramFormSchema,
   AddProgramFormValues,
-} from './AddProgramFormValues';
+} from './add-program-schema';
 
 export const AddProgramForm = () => {
   const queryClient = useQueryClient();
@@ -57,15 +57,15 @@ export const AddProgramForm = () => {
       gridGap="5"
       alignItems="start"
     >
-      <FormControl id="program-id" isInvalid={Boolean(errors.id)}>
+      <FormControl id="program-id" isInvalid={Boolean(errors.code)}>
         <FormLabel>
-          Program ID
+          Program code
           <FieldRequiredSymbol />
         </FormLabel>
 
-        <Input type="text" {...register('id')} />
+        <Input type="text" {...register('code')} />
 
-        <FormErrorMessage>{errors.id?.message}</FormErrorMessage>
+        <FormErrorMessage>{errors.code?.message}</FormErrorMessage>
 
         <FormHelperText>e.g. CPA, CTY, etc.</FormHelperText>
       </FormControl>

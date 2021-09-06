@@ -66,7 +66,7 @@ export function AddCourseForm() {
   const programsQuery = useQuery({
     queryFn: async () => {
       const params: Programs_Index_GetQuery = {
-        sort: 'id',
+        sort: 'code',
       };
 
       const res = await axios.get<Programs_Index_GetData>('/api/programs', {

@@ -10,7 +10,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 type GetData = Program[];
 export type Programs_Index_GetData = TResultSuccess<GetData>;
 export type Programs_Index_GetQuery = Partial<{
-  sort: 'id' | 'name' | 'createdDate';
+  sort: 'code' | 'name' | 'createdDate';
   order: Order;
 }>;
 async function get(
@@ -21,8 +21,8 @@ async function get(
   const programs = await ProgramService.getAllPrograms();
 
   switch (query.sort) {
-    case 'id':
-      programs.sort((a, b) => sortAlphabet(a.id, b.id));
+    case 'code':
+      programs.sort((a, b) => sortAlphabet(a.code, b.code));
       break;
 
     case 'name':
