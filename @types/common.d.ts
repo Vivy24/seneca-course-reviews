@@ -21,4 +21,6 @@ declare module '@common' {
   type ApiError = AxiosError<TResultError>;
 
   type Order = 'asc' | 'desc';
+
+  type ValidateQuery<T extends ApiQuery> = (query: ApiQuery) => TResult<T>;
 }
