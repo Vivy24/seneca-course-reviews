@@ -31,6 +31,7 @@ import { Editor, useEditor } from '@modules/editor';
 import { AddProfessorForm } from '@modules/professor';
 import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
+import { errorsToString } from '@utils/parse-utils';
 import axios from 'axios';
 import NextLink from 'next/link';
 import React from 'react';
@@ -182,7 +183,7 @@ export const AddCourseReviewForm = () => {
 
           {errors.professorIdList && (
             <FormErrorMessage>
-              {errors.professorIdList.message}
+              {errorsToString(errors.professorIdList)}
             </FormErrorMessage>
           )}
 
