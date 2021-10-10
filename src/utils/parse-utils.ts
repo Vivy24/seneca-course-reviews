@@ -1,3 +1,5 @@
+import { getErrorMessage } from './api-utils';
+
 export function parseNumber(num: unknown): number | null {
   if (typeof num === 'number' && !isNaN(num)) return num;
   if (typeof num === 'string' && !isNaN(+num)) return +num;
@@ -7,4 +9,8 @@ export function parseNumber(num: unknown): number | null {
 
 export function tryParseNumber(pageNumber: string | number | undefined | null) {
   return parseNumber(pageNumber) ?? Number.MAX_SAFE_INTEGER;
+}
+
+export function errorsToString(errors: unknown[]): string {
+  return errors.map(getErrorMessage).join('. ');
 }
