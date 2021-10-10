@@ -23,6 +23,7 @@ import { AddProgramForm } from '@modules/program';
 import { AsyncFormLabel } from '@ui/AsyncFormLabel';
 import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
+import { errorsToString } from '@utils/parse-utils';
 import axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -132,7 +133,9 @@ export function AddCourseForm() {
           </Select>
 
           {errors.programIdList && (
-            <FormErrorMessage>{errors.programIdList.message}</FormErrorMessage>
+            <FormErrorMessage>
+              {errorsToString(errors.programIdList)}
+            </FormErrorMessage>
           )}
 
           <FormHelperText>
