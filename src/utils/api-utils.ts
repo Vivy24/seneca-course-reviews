@@ -36,7 +36,7 @@ export function Result500(): TResultError {
 }
 
 export function getAxiosError(error: AxiosError<TResultError>): string {
-  if (error.response) return error.response.data.error.message;
+  if (error.response?.data.error) return error.response.data.error.message;
 
   if (error.request) return 'Network problem';
 

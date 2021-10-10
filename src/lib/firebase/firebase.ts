@@ -10,4 +10,5 @@ if (admin.apps.length === 0) {
   });
 }
 
+export const fireAuth = admin.auth();
 export const firestore = admin.firestore();
