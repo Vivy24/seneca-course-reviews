@@ -1,4 +1,4 @@
-import { HasMessage } from '@common';
+import { HasCode, HasMessage } from '@common';
 
 export function hasMessage(obj: unknown): obj is HasMessage {
   return typeof obj === 'object' && obj !== null && 'message' in obj;
@@ -11,3 +11,9 @@ export function isNullOrUndefined(obj: unknown): obj is null | undefined {
 export function isEmptyString(str: string | null | undefined): boolean {
   return isNullOrUndefined(str) || str.trim().length === 0;
 }
+
+export const isBrowser = () =>
+  ![typeof window, typeof document].includes('undefined');
+
+export const hasCode = (obj: unknown): obj is HasCode =>
+  typeof obj === 'object' && obj !== null && 'code' in obj;

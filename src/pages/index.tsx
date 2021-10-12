@@ -1,9 +1,4 @@
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
-import {
-  createUserWithEmailAndPassword,
-  sendSignInLinkToEmail,
-} from '@firebase/auth';
-import { SignupForm } from '@modules/auth';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import NextLink from 'next/link';
@@ -32,8 +27,6 @@ const Home: NextPage = () => {
           </Button>
         </NextLink>
       </Flex>
-
-      <SignupForm />
     </Box>
   );
 };

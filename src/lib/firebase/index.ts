@@ -1,2 +1,1 @@
-export * from './firebase'
-export * from './firebase-sdk'
+export * from './firebase-sdk';

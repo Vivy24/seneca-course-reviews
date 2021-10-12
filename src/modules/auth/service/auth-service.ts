@@ -1,4 +1,4 @@
-import { fireAuth, firestore } from '@lib/firebase';
+import { fireAuth, firestore } from '@lib/firebase/server-index';
 import { auth } from 'firebase-admin';
 import { SignupFormValues } from '..';
 

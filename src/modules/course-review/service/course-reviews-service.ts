@@ -1,4 +1,4 @@
-import { firestore } from '@lib/firebase/firebase';
+import { firestore } from '@lib/firebase/server-index';
 import { Professor } from '@modules/professor';
 import { ProfessorSerivce } from '@modules/professor/server-index';
 import { snapshotToData } from '@utils/convert-utils';
