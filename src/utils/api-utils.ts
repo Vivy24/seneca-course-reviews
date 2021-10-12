@@ -1,7 +1,8 @@
 import { HasMessage, TResultError, TResultSuccess } from '@common';
+import { isBrowser } from '@firebase/util';
 import axios, { AxiosError } from 'axios';
 import { GetStaticPropsResult } from 'next';
-import { hasMessage } from './validate-utils';
+import { hasMessage, isNullOrUndefined } from './validate-utils';
 
 export function ResultError(message: string): TResultError {
   return {
@@ -48,7 +49,8 @@ export function getErrorMessage(error: unknown): string {
 
   if (hasMessage(error)) return error.message;
 
-  if (axios.isAxiosError(error)) return getAxiosError(error);
+  if (isBrowser() && !isNullOrUndefined(error) && axios.isAxiosError(error))
+    return getAxiosError(error);
 
   return 'Something went wrong';
 }

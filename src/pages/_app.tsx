@@ -1,4 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react';
+import { AuthProvider } from '@modules/auth';
 import theme from '@styles/charka-theme';
 import type { AppProps } from 'next/app';
 import React from 'react';
@@ -12,10 +13,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-
+        <AuthProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </AuthProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ChakraProvider>

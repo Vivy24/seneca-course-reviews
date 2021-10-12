@@ -1,4 +1,3 @@
-import { Button } from '@chakra-ui/button';
 import {
   FormControl,
   FormErrorMessage,
@@ -6,16 +5,18 @@ import {
   FormLabel,
 } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
-import { Flex } from '@chakra-ui/layout';
-import { Spinner } from '@chakra-ui/spinner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthApi } from '@modules/auth';
 import FieldRequiredSymbol from '@ui/FieldRequiredSymbol';
+import { Form } from '@ui/Form';
+import { FormSubmitButton } from '@ui/FormSubmitButton';
+import { FormSubmitErrorText } from '@ui/FormSubmitErrorText';
+import { FormSubmitSuccessText } from '@ui/FormSubmitSuccessText';
+import { PasswordInput } from '@ui/PasswordInput';
 import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FaBan, FaCheckCircle } from 'react-icons/fa';
 import { useMutation } from 'react-query';
 import { signupFormSchema, SignupFormValues } from './signup-form-schema';
 
@@ -31,14 +32,7 @@ export const SignupForm = () => {
   );
 
   return (
-    <Flex
-      as="form"
-      onSubmit={submitMutation.mutate}
-      noValidate
-      direction="column"
-      gridGap="5"
-      alignItems="start"
-    >
+    <Form onSubmit={submitMutation.mutate}>
       <FormControl
         id="user-display-name"
         isInvalid={Boolean(form.formState.errors.displayName)}
@@ -48,7 +42,11 @@ export const SignupForm = () => {
           <FieldRequiredSymbol />
         </FormLabel>
 
-        <Input type="text" {...form.register('displayName')} />
+        <Input
+          type="text"
+          autoComplete="off"
+          {...form.register('displayName')}
+        />
 
         <FormErrorMessage>
           {form.formState.errors.displayName?.message}
@@ -66,7 +64,11 @@ export const SignupForm = () => {
           <FieldRequiredSymbol />
         </FormLabel>
 
-        <Input type="text" {...form.register('email')} />
+        <Input
+          type="email"
+          autoComplete="username"
+          {...form.register('email')}
+        />
 
         <FormErrorMessage>
           {form.formState.errors.email?.message}
@@ -84,7 +86,10 @@ export const SignupForm = () => {
           <FieldRequiredSymbol />
         </FormLabel>
 
-        <Input type="password" {...form.register('password')} />
+        <PasswordInput
+          autoComplete="current-password"
+          {...form.register('password')}
+        />
 
         <FormErrorMessage>
           {form.formState.errors.password?.message}
@@ -102,7 +107,10 @@ export const SignupForm = () => {
           <FieldRequiredSymbol />
         </FormLabel>
 
-        <Input type="password" {...form.register('confirmPassword')} />
+        <PasswordInput
+          autoComplete="current-password"
+          {...form.register('confirmPassword')}
+        />
 
         <FormErrorMessage>
           {form.formState.errors.confirmPassword?.message}
@@ -111,26 +119,17 @@ export const SignupForm = () => {
         <FormHelperText>Re-enter your password</FormHelperText>
       </FormControl>
 
-      <Button
-        type="submit"
-        spinner={<Spinner />}
-        disabled={form.formState.isSubmitting}
-        isLoading={form.formState.isSubmitting}
-      >
+      <FormSubmitButton isSubmitting={form.formState.isSubmitting}>
         Sign Up
-      </Button>
+      </FormSubmitButton>
 
       {submitMutation.error && (
-        <Flex gridGap="1" color="red" alignItems="center">
-          <FaBan /> {getAxiosError(submitMutation.error)}
-        </Flex>
+        <FormSubmitErrorText message={getAxiosError(submitMutation.error)} />
       )}
 
       {submitMutation.isSuccess && (
-        <Flex gridGap="1" color="green" alignItems="center">
-          <FaCheckCircle /> Your account is created. Welcome to the community!
-        </Flex>
+        <FormSubmitSuccessText message="Your account is created. Welcome to the community!" />
       )}
-    </Flex>
+    </Form>
   );
 };

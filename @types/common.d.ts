@@ -1,7 +1,10 @@
 declare module '@common' {
   import { AxiosError } from 'axios';
+  import { UseControllerProps } from 'react-hook-form';
 
   type HasMessage = { message: string };
+
+  type HasCode = { code: string };
   type TResultError = {
     type: 'error';
     error: HasMessage | Error;
@@ -23,4 +26,6 @@ declare module '@common' {
   type Order = 'asc' | 'desc';
 
   type ValidateQuery<T extends ApiQuery> = (query: ApiQuery) => TResult<T>;
+
+  type Controllers<T> = Record<keyof T, UseControllerProps<T>>;
 }
