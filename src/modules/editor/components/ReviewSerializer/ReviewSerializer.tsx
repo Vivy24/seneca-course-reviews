@@ -1,7 +1,9 @@
-import { renderLeaf, renderReviewRichText, useEditor } from '@modules/editor';
+import { useEditor } from '@modules/editor/hooks/useEditor';
 import React, { useCallback } from 'react';
 import { Descendant } from 'slate';
 import { Editable, Slate } from 'slate-react';
+import { renderLeaf } from '../EditorLeaf/EditorLeaf';
+import { renderReviewRichText } from '../ReviewElement/ReviewElement';
 
 type Props = {
   value: Descendant[];

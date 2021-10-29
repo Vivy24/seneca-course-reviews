@@ -1,6 +1,6 @@
 import { useToast } from '@chakra-ui/toast';
 import { getAuth, onAuthStateChanged, User } from '@firebase/auth';
-import { firebaseApp } from '@lib/firebase';
+import { firebaseApp } from '@lib/firebase/firebase-sdk';
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 
 const auth = getAuth(firebaseApp);

@@ -1,6 +1,6 @@
-import { Course } from '@modules/course';
-import { CourseReviewService } from '@modules/course-review/service';
-import { CourseService } from '@modules/course/service';
+import { CourseReviewService } from '@modules/course-review/service/course-reviews-service';
+import { Course } from '@modules/course/model/Course';
+import { CourseService } from '@modules/course/service/course-service';
 
 export class PageService {
   static async getCourseIdPage(courseId: string) {

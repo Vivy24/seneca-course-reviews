@@ -1,7 +1,10 @@
 import { HasMessage, TResult, TResultSuccess, ValidateQuery } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { signupFormSchema, SignupFormValues } from '@modules/auth';
-import { AuthService } from '@modules/auth/server-index';
+import {
+  signupFormSchema,
+  SignupFormValues,
+} from '@modules/auth/components/SignupForm/signup-form-schema';
+import { AuthService } from '@modules/auth/service/auth-service';
 import {
   getErrorMessage,
   ResultError,

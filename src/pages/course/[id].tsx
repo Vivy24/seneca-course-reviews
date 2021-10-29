@@ -9,12 +9,12 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { TResult } from '@common';
-import { Course } from '@modules/course';
-import { CourseReviewCard } from '@modules/course-review';
-import { PopulatedCourseReview } from '@modules/course-review/service';
-import { CourseService } from '@modules/course/service';
-import { useCourseIdPage } from '@modules/page-data';
-import { PageService } from '@modules/page-data/service';
+import { CourseReviewCard } from '@modules/course-review/components/CourseReviewCard/CourseReviewCard';
+import { PopulatedCourseReview } from '@modules/course-review/service/course-reviews-service';
+import { Course } from '@modules/course/model/Course';
+import { CourseService } from '@modules/course/service/course-service';
+import { useCourseIdPage } from '@modules/page-data/hooks/useCourseIdPage';
+import { PageService } from '@modules/page-data/service/page-service';
 import GoBackButton from '@ui/GoBackButton';
 import { ReviewCardList } from '@ui/ReviewCardList';
 import { WithDataFetchingPage } from '@ui/WithDataFetchingPage';

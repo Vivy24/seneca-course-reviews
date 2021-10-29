@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AuthApi } from '@modules/auth';
+import { AuthApi } from '@modules/auth/api/auth-api';
 import FieldRequiredSymbol from '@ui/FieldRequiredSymbol';
 import { Form } from '@ui/Form';
 import { FormSubmitButton } from '@ui/FormSubmitButton';

@@ -1,4 +1,5 @@
 import { IconButton } from '@chakra-ui/react';
+import { isBlockActive, toggleBlock } from '@modules/editor/utils/editor-utils';
 import {
   FaDiceFive,
   FaDiceFour,
@@ -12,7 +13,7 @@ import {
 } from 'react-icons/fa';
 import { BlockFormat } from 'slate';
 import { useSlate } from 'slate-react';
-import { isBlockActive, toggleBlock } from '../..';
+
 type Props = {
   format: BlockFormat;
 };

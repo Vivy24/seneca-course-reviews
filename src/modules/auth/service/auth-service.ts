@@ -1,6 +1,6 @@
-import { fireAuth, firestore } from '@lib/firebase/server-index';
+import { fireAuth, firestore } from '@lib/firebase/firebase';
 import { auth } from 'firebase-admin';
-import { SignupFormValues } from '..';
+import { SignupFormValues } from '../components/SignupForm/signup-form-schema';
 
 const profileCollection = firestore.collection('user-profile');
 const actionCodeSettings: auth.ActionCodeSettings = {

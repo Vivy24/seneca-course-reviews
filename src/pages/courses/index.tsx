@@ -9,8 +9,9 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { TResult } from '@common';
-import { Course, CoursePreviewCard } from '@modules/course';
-import { PageService } from '@modules/page-data/service';
+import { CoursePreviewCard } from '@modules/course/components/CoursePreviewCard/CoursePreviewCard';
+import { Course } from '@modules/course/model/Course';
+import { PageService } from '@modules/page-data/service/page-service';
 import { PreviewGridList } from '@ui/PreviewGridList';
 import { handleStaticPropsError, ResultSuccess } from '@utils/api-utils';
 import axios from 'axios';

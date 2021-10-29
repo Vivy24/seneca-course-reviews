@@ -1,7 +1,7 @@
 import { HasMessage, TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { AddCourseReviewFormValues } from '@modules/course-review';
-import { CourseReviewService } from '@modules/course-review/server-index';
+import { AddCourseReviewFormValues } from '@modules/course-review/components/AddCourseReviewForm/add-course-review-schema';
+import { CourseReviewService } from '@modules/course-review/service/course-reviews-service';
 import { ResultOk } from '@utils/api-utils';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Descendant } from 'slate';

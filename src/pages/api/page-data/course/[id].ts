@@ -1,8 +1,8 @@
 import { TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { Course } from '@modules/course';
-import { PopulatedCourseReview } from '@modules/course-review/service';
-import { PageService } from '@modules/page-data/service';
+import { PopulatedCourseReview } from '@modules/course-review/service/course-reviews-service';
+import { Course } from '@modules/course/model/Course';
+import { PageService } from '@modules/page-data/service/page-service';
 import { ResultNotFound, ResultSuccess } from '@utils/api-utils';
 import { NextApiRequest, NextApiResponse } from 'next';
 

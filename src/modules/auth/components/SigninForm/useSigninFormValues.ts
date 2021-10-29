@@ -1,9 +1,10 @@
 import { Controllers } from '@common';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AuthApi, signinFormSchema, SigninFormValues } from '@modules/auth';
+import { AuthApi } from '@modules/auth/api/auth-api';
 import { MutationHandleSubmit } from '@utilities';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
+import { signinFormSchema, SigninFormValues } from './signin-form-schema';
 
 type SigninFormControllers = Controllers<SigninFormValues>;
 

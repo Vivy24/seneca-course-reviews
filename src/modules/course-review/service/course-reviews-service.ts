@@ -1,11 +1,14 @@
-import { firestore } from '@lib/firebase/server-index';
-import { Professor } from '@modules/professor';
-import { ProfessorSerivce } from '@modules/professor/server-index';
+import { firestore } from '@lib/firebase/firebase';
+import { Professor } from '@modules/professor/model/Professor';
+import { ProfessorSerivce } from '@modules/professor/service/professor-service';
 import { snapshotToData } from '@utils/convert-utils';
 import { isEmptyString } from '@utils/validate-utils';
 import uniq from 'lodash/uniq';
 import { CourseReview } from '../model/CourseReview';
-import { CourseReviewsFormatOptions, sortCourseReviews } from '../utils';
+import {
+  CourseReviewsFormatOptions,
+  sortCourseReviews,
+} from '../utils/course-reviews-utils';
 
 export type PopulatedCourseReview = CourseReview & {
   professors: Professor[];

@@ -5,7 +5,7 @@ import {
 import { Nullable } from '@utilities';
 import axios from 'axios';
 import { QueryFunctionContext, useQuery } from 'react-query';
-import { CourseReview } from '..';
+import { CourseReview } from '../model/CourseReview';
 
 type QueryKey = [key: string, courseId: string | undefined];
 

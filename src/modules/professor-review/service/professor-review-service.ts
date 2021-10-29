@@ -1,4 +1,4 @@
-import { firestore } from '@lib/firebase/server-index';
+import { firestore } from '@lib/firebase/firebase';
 import { ProfessorReview } from '../model/ProfessorReview';
 
 const collectionRef = firestore.collection('professorReviews');

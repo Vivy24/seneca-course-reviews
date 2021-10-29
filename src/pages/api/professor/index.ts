@@ -1,7 +1,7 @@
 import { HasMessage, TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { AddProfessorFormValues } from '@modules/professor';
-import { ProfessorSerivce } from '@modules/professor/server-index';
+import { AddProfessorFormValues } from '@modules/professor/components/AddProfessorForm/add-professor-schema';
+import { ProfessorSerivce } from '@modules/professor/service/professor-service';
 import { ResultError, ResultOk } from '@utils/api-utils';
 import snakeCase from 'lodash/snakeCase';
 import { NextApiRequest, NextApiResponse } from 'next';

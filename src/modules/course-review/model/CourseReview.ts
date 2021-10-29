@@ -1,5 +1,5 @@
 import { Descendant } from 'slate';
-import { AddCourseReviewFormValues } from '..';
+import { AddCourseReviewFormValues } from '../components/AddCourseReviewForm/add-course-review-schema';
 
 export type CourseReview = AddCourseReviewFormValues & {
   _createdAt: string;

@@ -1,7 +1,7 @@
 import { HasMessage, TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { AddCourseFormValues } from '@modules/course';
-import { CourseService } from '@modules/course/server-index';
+import { AddCourseFormValues } from '@modules/course/components/AddCourseForm/add-course-form-schema';
+import { CourseService } from '@modules/course/service/course-service';
 import { ResultError, ResultOk } from '@utils/api-utils';
 import difference from 'lodash/difference';
 import snakeCase from 'lodash/snakeCase';
