@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { Order, TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { Program } from '@modules/program';
-import { ProgramService } from '@modules/program/server-index';
+import { Program } from '@modules/program/model/Program';
+import { ProgramService } from '@modules/program/service/ProgramService';
 import { ResultSuccess } from '@utils/api-utils';
 import { sortAlphabet, sortDate } from '@utils/sort-utils';
 import type { NextApiRequest, NextApiResponse } from 'next';

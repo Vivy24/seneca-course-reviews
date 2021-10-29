@@ -10,8 +10,8 @@ import {
   UnorderedList,
   VStack,
 } from '@chakra-ui/react';
-import { PopulatedCourseReview } from '@modules/course-review/service';
-import { ReviewSerializer } from '@modules/editor';
+import { PopulatedCourseReview } from '@modules/course-review/service/course-reviews-service';
+import { ReviewSerializer } from '@modules/editor/components/ReviewSerializer/ReviewSerializer';
 import { RatingStars } from '@ui/RatingStars';
 import { toFullDate, toISODate } from '@utils/date-utils';
 import NextLink from 'next/link';

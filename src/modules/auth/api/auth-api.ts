@@ -1,9 +1,9 @@
 import { Auth_SignupByPassword_PostBody } from '@api/auth/signupByPassword';
-import { firebaseApp } from '@lib/firebase';
+import { firebaseApp } from '@lib/firebase/firebase-sdk';
 import { hasCode } from '@utils/validate-utils';
 import axios from 'axios';
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { SigninFormValues } from '..';
+import { SigninFormValues } from '../components/SigninForm/signin-form-schema';
 
 const api = axios.create({ baseURL: '/api/auth' });
 const auth = getAuth(firebaseApp);

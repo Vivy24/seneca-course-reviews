@@ -19,7 +19,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AddProgramForm } from '@modules/program';
+import { AddProgramForm } from '@modules/program/components/AddProgramForm/AddProgramForm';
 import { AsyncFormLabel } from '@ui/AsyncFormLabel';
 import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';

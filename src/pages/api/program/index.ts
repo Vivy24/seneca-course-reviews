@@ -1,7 +1,7 @@
 import { HasMessage, TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { AddProgramFormValues } from '@modules/program';
-import { ProgramService } from '@modules/program/server-index';
+import { AddProgramFormValues } from '@modules/program/components/AddProgramForm/add-program-schema';
+import { ProgramService } from '@modules/program/service/ProgramService';
 import { ResultError, ResultOk } from '@utils/api-utils';
 import snakeCase from 'lodash/snakeCase';
 import { NextApiRequest, NextApiResponse } from 'next';

@@ -1,7 +1,7 @@
 import { TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { Course } from '@modules/course';
-import { PageService } from '@modules/page-data/service';
+import { Course } from '@modules/course/model/Course';
+import { PageService } from '@modules/page-data/service/page-service';
 import { ResultSuccess } from '@utils/api-utils';
 import { NextApiRequest, NextApiResponse } from 'next';
 

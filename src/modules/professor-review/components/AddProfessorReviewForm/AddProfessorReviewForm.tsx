@@ -26,9 +26,10 @@ import {
 } from '@chakra-ui/react';
 import { ApiError } from '@common';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AddCourseForm } from '@modules/course';
-import { Editor, useEditor } from '@modules/editor';
-import { AddProfessorForm } from '@modules/professor';
+import { AddCourseForm } from '@modules/course/components/AddCourseForm/AddCourseForm';
+import Editor from '@modules/editor/components/Editor/Editor';
+import { useEditor } from '@modules/editor/hooks/useEditor';
+import { AddProfessorForm } from '@modules/professor/components/AddProfessorForm/AddProfessorForm';
 import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';

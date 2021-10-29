@@ -2,7 +2,7 @@ import { Course_Id_GetData } from '@api/course/[id]';
 import { Nullable } from '@utilities';
 import axios from 'axios';
 import { QueryFunctionContext, useQuery } from 'react-query';
-import { Course } from '..';
+import { Course } from '../model/Course';
 
 type QueryKey = [string, string];
 

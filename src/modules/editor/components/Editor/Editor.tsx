@@ -1,16 +1,19 @@
 import { Box, ButtonGroup, Flex, IconButton } from '@chakra-ui/react';
-import isHotkey from 'is-hotkey';
-import React, { KeyboardEventHandler, useCallback } from 'react';
-import { FaTrash } from 'react-icons/fa';
-import { Editable, useSlate } from 'slate-react';
-import { BlockButton, MarkButton, renderLeaf, renderReviewRichText } from '..';
 import {
   BLOCK_HOTKEYS,
   MARK_HOTKEYS,
   removeAllMarks,
   toggleBlock,
   toggleMark,
-} from '../..';
+} from '@modules/editor/utils/editor-utils';
+import isHotkey from 'is-hotkey';
+import React, { KeyboardEventHandler, useCallback } from 'react';
+import { FaTrash } from 'react-icons/fa';
+import { Editable, useSlate } from 'slate-react';
+import BlockButton from '../BlockButton/BlockButton';
+import { renderLeaf } from '../EditorLeaf/EditorLeaf';
+import MarkButton from '../MarkButton/MarkButton';
+import { renderReviewRichText } from '../ReviewElement/ReviewElement';
 
 function Editor() {
   const memoRenderElement = useCallback(renderReviewRichText, []);

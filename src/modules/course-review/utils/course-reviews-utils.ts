@@ -1,5 +1,5 @@
 import { Order } from '@common';
-import { CourseReview } from '..';
+import { CourseReview } from '../model/CourseReview';
 
 export type CourseReviewsFormatOptions = Partial<{
   sortBy: 'id' | 'createdDate';

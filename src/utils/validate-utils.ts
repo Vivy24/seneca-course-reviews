@@ -1,7 +1,7 @@
 import { HasCode, HasMessage } from '@common';
 
-export function hasMessage(obj: unknown): obj is HasMessage {
-  return typeof obj === 'object' && obj !== null && 'message' in obj;
+export function hasMessage(obj: any): obj is HasMessage {
+  return typeof obj?.message === 'string';
 }
 
 export function isNullOrUndefined(obj: unknown): obj is null | undefined {

@@ -1,7 +1,8 @@
 import { PartiallyPartial } from '@utilities';
 import { firestore as admin } from 'firebase-admin';
 import { firestore } from 'src/lib/firebase/firebase';
-import { Course, CoursesFormatOptions, sortCourses } from '..';
+import { Course } from '../model/Course';
+import { CoursesFormatOptions, sortCourses } from '../utils/courses-utils';
 
 const collectionRef = firestore.collection('courses');
 

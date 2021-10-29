@@ -1,5 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import { AuthProvider } from '@modules/auth';
+import { AuthProvider } from '@modules/auth/context/AuthContext';
 import theme from '@styles/charka-theme';
 import type { AppProps } from 'next/app';
 import React from 'react';

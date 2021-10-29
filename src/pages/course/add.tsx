@@ -1,5 +1,5 @@
 import { Box, Heading } from '@chakra-ui/react';
-import { AddCourseForm } from '@modules/course';
+import { AddCourseForm } from '@modules/course/components/AddCourseForm/AddCourseForm';
 import React from 'react';
 import GoBackButton from 'src/ui/GoBackButton';
 

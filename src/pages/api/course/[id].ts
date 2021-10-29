@@ -1,7 +1,7 @@
 import { TResult, TResultSuccess } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { Course } from '@modules/course';
-import { CourseService } from '@modules/course/service';
+import { Course } from '@modules/course/model/Course';
+import { CourseService } from '@modules/course/service/course-service';
 import { ResultNotFound, ResultSuccess } from '@utils/api-utils';
 import { NextApiRequest, NextApiResponse } from 'next';
 
