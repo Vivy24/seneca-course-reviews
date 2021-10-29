@@ -1,6 +1,5 @@
 declare module '@common' {
   import { AxiosError } from 'axios';
-  import { UseControllerProps } from 'react-hook-form';
 
   type HasMessage = { message: string };
 
