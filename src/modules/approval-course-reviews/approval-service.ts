@@ -1,6 +1,6 @@
-import { firestore } from "@lib/firebase/firebase";
+import { firestore } from '@lib/firebase/firebase';
 
-const collectionRef = firestore.collection("course_reviews");
+const collectionRef = firestore.collection('course_reviews');
 
 export class ApprovalService {
   static async approveReviewByID(reviewId: string) {

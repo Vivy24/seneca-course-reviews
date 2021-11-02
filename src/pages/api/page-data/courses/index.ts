@@ -15,7 +15,7 @@ type Params = {
 
 type GetData = Course[];
 export type PageData_Courses_GetData = TResultSuccess<GetData>;
-export type PageData_Courses_GetQuery = {};
+export type PageData_Courses_GetQuery = Params;
 
 async function get(
   req: NextApiRequest,
