@@ -12,7 +12,7 @@ import {
   Input,
   Spinner,
 } from '@chakra-ui/react';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import FieldRequiredSymbol from '@ui/FieldRequiredSymbol';
 import { MutationHandleSubmit } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';

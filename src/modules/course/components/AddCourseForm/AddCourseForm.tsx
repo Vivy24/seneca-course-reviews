@@ -18,7 +18,7 @@ import {
   Spinner,
   useDisclosure,
 } from '@chakra-ui/react';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import { AddProgramForm } from '@modules/program/components/AddProgramForm/AddProgramForm';
 import { AsyncFormLabel } from '@ui/AsyncFormLabel';
 import { MutationHandleSubmit } from '@utilities';

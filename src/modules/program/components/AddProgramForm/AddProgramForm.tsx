@@ -7,7 +7,7 @@ import {
   FormLabel,
   Input,
 } from '@chakra-ui/react';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import FieldRequiredSymbol from '@ui/FieldRequiredSymbol';
 import { FormSubmitButton } from '@ui/FormSubmitButton';
 import { FormSubmitErrorText } from '@ui/FormSubmitErrorText';

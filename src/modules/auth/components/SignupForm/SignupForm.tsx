@@ -5,7 +5,7 @@ import {
   FormLabel,
 } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import { AuthApi } from '@modules/auth/api/auth-api';
 import FieldRequiredSymbol from '@ui/FieldRequiredSymbol';
 import { Form } from '@ui/Form';
