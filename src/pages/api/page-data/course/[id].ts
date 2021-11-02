@@ -19,13 +19,13 @@ type GetData = {
   reviews: PopulatedCourseReview[];
 };
 export type PageData_PageData_Course_Id_GetData = TResultSuccess<GetData>;
-export type PageData_Course_Id_GetQuery = {};
+export type PageData_Course_Id_GetQuery = Params;
 
 async function get(
   req: NextApiRequest,
   res: NextApiResponse<TResult<GetData>>
 ) {
-  const query = req.query as PageData_Course_Id_GetQuery & Params;
+  const query = req.query as PageData_Course_Id_GetQuery;
 
   const { course, reviews } = await PageService.getCourseIdPage(query.id);
 

@@ -85,8 +85,7 @@ const CoursesIndexPage = (props: Props) => {
 
 type StaticProps = TResult<Course[]>;
 
-type Params = {};
-export const getStaticProps: GetStaticProps<StaticProps, Params> = async () => {
+export const getStaticProps: GetStaticProps<StaticProps> = async () => {
   try {
     const courses = await PageService.getCoursesPage();
 

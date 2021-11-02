@@ -15,6 +15,7 @@ const fetcher = async (ctx: QueryFunctionContext<QueryKey>) => {
 };
 
 export function useCourse(course: Nullable<Course>) {
+  // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
   const result = useQuery(['course', course!.id], fetcher, {
     enabled: Boolean(course),
     placeholderData: course,

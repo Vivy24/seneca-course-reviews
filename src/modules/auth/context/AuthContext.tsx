@@ -17,7 +17,7 @@ const AuthProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const toast = useToast();
 
-  onAuthStateChanged(auth, setUser, (error) => {
+  onAuthStateChanged(auth, setUser, () => {
     toast({
       title: 'Error.',
       description:

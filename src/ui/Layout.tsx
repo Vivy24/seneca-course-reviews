@@ -1,10 +1,10 @@
 import { Box } from '@chakra-ui/react';
-import React, { PropsWithChildren } from 'react';
+import React, { ReactNode } from 'react';
 import Footer from './Footer';
 import Navbar from './Navbar';
 
-type Props = {};
-function Layout(props: PropsWithChildren<Props>) {
+type Props = { children: ReactNode };
+function Layout(props: Props) {
   return (
     <>
       <Navbar />
