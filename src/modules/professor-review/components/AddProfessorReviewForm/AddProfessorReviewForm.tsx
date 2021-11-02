@@ -25,7 +25,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { ApiError } from '@common';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import { AddCourseForm } from '@modules/course/components/AddCourseForm/AddCourseForm';
 import Editor from '@modules/editor/components/Editor/Editor';
 import { useEditor } from '@modules/editor/hooks/useEditor';

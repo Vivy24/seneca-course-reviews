@@ -1,5 +1,5 @@
 import { Controllers } from '@common';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import { AuthApi } from '@modules/auth/api/auth-api';
 import { MutationHandleSubmit } from '@utilities';
 import { useForm } from 'react-hook-form';
