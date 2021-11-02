@@ -1,9 +1,9 @@
 import { Grid, GridItem } from '@chakra-ui/react';
-import React, { Children, PropsWithChildren } from 'react';
+import React, { Children, ReactNode } from 'react';
 
-type Props = {};
+type Props = { children: ReactNode };
 
-export const PreviewGridList = ({ children }: PropsWithChildren<Props>) => {
+export const PreviewGridList = ({ children }: Props) => {
   return (
     <Grid templateColumns="repeat(4, 1fr)" gap={5}>
       {Children.map(children, (child) => (

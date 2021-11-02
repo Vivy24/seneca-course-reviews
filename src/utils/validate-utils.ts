@@ -1,5 +1,6 @@
 import { HasCode, HasMessage } from '@common';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function hasMessage(obj: any): obj is HasMessage {
   return typeof obj?.message === 'string';
 }

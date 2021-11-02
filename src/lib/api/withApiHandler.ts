@@ -15,6 +15,7 @@ const httpMethodList = [
 ] as const;
 type HttpMethod = typeof httpMethodList[number];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isHttpMethod(method: any): method is HttpMethod {
   return httpMethodList.includes(method);
 }

@@ -27,7 +27,6 @@ export const AddProgramForm = () => {
   const queryClient = useQueryClient();
 
   const {
-    control,
     handleSubmit,
     register,
     formState: { errors, isSubmitting, isSubmitSuccessful },

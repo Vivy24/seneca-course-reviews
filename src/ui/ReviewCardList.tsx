@@ -1,8 +1,10 @@
 import { Box, VStack } from '@chakra-ui/react';
-import React, { Children, PropsWithChildren } from 'react';
+import React, { Children, ReactNode } from 'react';
 
-type Props = {};
-export const ReviewCardList = ({ children }: PropsWithChildren<Props>) => {
+type Props = {
+  children: ReactNode;
+};
+export const ReviewCardList = ({ children }: Props) => {
   return (
     <VStack as="ul" spacing="5" listStyleType="none" align="stretch">
       {Children.map(children, (child) => (

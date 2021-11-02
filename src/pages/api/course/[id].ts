@@ -14,13 +14,13 @@ type Params = {
 /* -------------------------------------------------------------------------- */
 type GetData = Course;
 export type Course_Id_GetData = TResultSuccess<GetData>;
-export type Course_Id_GetQuery = {};
+export type Course_Id_GetQuery = Params;
 
 async function get(
   req: NextApiRequest,
   res: NextApiResponse<TResult<GetData>>
 ) {
-  const query = req.query as Course_Id_GetQuery & Params;
+  const query = req.query as Course_Id_GetQuery;
 
   const course = await CourseService.getCourse(query.id);
 

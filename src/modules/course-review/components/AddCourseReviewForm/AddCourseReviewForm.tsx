@@ -64,7 +64,6 @@ export const AddCourseReviewForm = () => {
   } = useForm<AddCourseReviewFormValues>({
     resolver: zodResolver(addCourseReviewSchema),
   });
-  const professorIdList = watch('professorIdList');
   const courseId = watch('courseId');
 
   const coursesQuery = useQuery({
