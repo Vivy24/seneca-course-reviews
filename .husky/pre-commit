@@ -1,16 +1,16 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Type checking
-echo '🐶 Checking types...'
-npm run type-check
-
-
 # Formatting
 echo '🐶 Running prettier...'
 npx lint-staged
 
+# Type checking
+echo '🐶 Checking types...'
+npm run type-check || (echo '❌ Type check failed. Fix above errors and commit again'; false;)
+
+
 # Linting
 echo '🐶 Linting...'
-npm run lint
+npm run lint || (echo '❌ Lint detected. Fix above errors and commit again';false;)
 
