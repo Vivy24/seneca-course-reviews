@@ -13,7 +13,7 @@ import { FormSubmitButton } from '@ui/FormSubmitButton';
 import { FormSubmitErrorText } from '@ui/FormSubmitErrorText';
 import { FormSubmitSuccessText } from '@ui/FormSubmitSuccessText';
 import { PasswordInput } from '@ui/PasswordInput';
-import { MutationHandleSubmit } from '@utilities';
+import { AxiosMutation } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -25,14 +25,14 @@ export const SignupForm = () => {
     resolver: zodResolver(signupFormSchema),
   });
 
-  const submitMutation: MutationHandleSubmit = useMutation(
-    form.handleSubmit(async (data) => {
-      await AuthApi.signupByPassword(data);
-    })
+  const submitMutation: AxiosMutation<SignupFormValues> = useMutation(
+    AuthApi.signupByPassword
   );
 
+  const onSubmit = form.handleSubmit((data) => submitMutation.mutate(data));
+
   return (
-    <Form onSubmit={submitMutation.mutate}>
+    <Form onSubmit={onSubmit}>
       <FormControl
         id="user-display-name"
         isInvalid={Boolean(form.formState.errors.displayName)}
@@ -64,11 +64,7 @@ export const SignupForm = () => {
           <FieldRequiredSymbol />
         </FormLabel>
 
-        <Input
-          type="email"
-          autoComplete="username"
-          {...form.register('email')}
-        />
+        <Input type="email" autoComplete="email" {...form.register('email')} />
 
         <FormErrorMessage>
           {form.formState.errors.email?.message}
@@ -87,7 +83,7 @@ export const SignupForm = () => {
         </FormLabel>
 
         <PasswordInput
-          autoComplete="current-password"
+          autoComplete="new-password"
           {...form.register('password')}
         />
 
@@ -108,7 +104,7 @@ export const SignupForm = () => {
         </FormLabel>
 
         <PasswordInput
-          autoComplete="current-password"
+          autoComplete="new-password"
           {...form.register('confirmPassword')}
         />
 
