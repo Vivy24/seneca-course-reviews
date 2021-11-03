@@ -1,6 +1,6 @@
 import { TResult, TResultSuccess, ValidateQuery } from '@common';
 import { withApiHandler } from '@lib/api/withApiHandler';
-import { ApprovalService } from '@modules/approval-course-reviews/approval-service';
+import { CourseReviewService } from '@modules/course-review/service/course-reviews-service';
 import { ResultError, ResultSuccess } from '@utils/api-utils';
 import { isEmptyString } from '@utils/validate-utils';
 import { NextApiHandler } from 'next';
@@ -15,7 +15,7 @@ const patch: NextApiHandler<TResult<PatchData>> = async (req, res) => {
   if (body.type === 'error') return res.status(400).json(body);
 
   try {
-    ApprovalService.approveReviewByID(body.data.reviewId);
+    CourseReviewService.approveReviewByID(body.data.reviewId);
   } catch (error) {
     return res.status(500).json(ResultError(`Fail to update review id`));
   }

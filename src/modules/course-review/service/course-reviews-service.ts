@@ -65,6 +65,10 @@ export class CourseReviewService {
     });
   }
 
+  static async approveReviewByID(reviewId: string) {
+    await collectionRef.doc(reviewId).update({ _isApproved: true });
+  }
+
   //#region helers
 
   //#endregion

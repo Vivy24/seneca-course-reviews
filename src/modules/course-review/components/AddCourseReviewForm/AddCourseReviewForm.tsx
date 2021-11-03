@@ -70,7 +70,6 @@ export const AddCourseReviewForm = () => {
       userId: user?.uid ?? '',
     },
   });
-  const professorIdList = watch('professorIdList');
   const courseId = watch('courseId');
 
   const coursesQuery = useQuery({
@@ -133,7 +132,7 @@ export const AddCourseReviewForm = () => {
         alignItems="start"
       >
         <FormControl isInvalid={Boolean(errors.reviewName)}>
-          <FormLabel>Reviewer's Name</FormLabel>
+          <FormLabel>Your name</FormLabel>
           <Input {...register('reviewName')} />
           {errors.reviewName && (
             <FormErrorMessage>{errors.reviewName.message}</FormErrorMessage>
