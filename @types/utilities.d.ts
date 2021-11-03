@@ -11,6 +11,13 @@ declare module '@utilities' {
     unknown
   >;
 
+  type AxiosMutation<TVariables = unknown> = UseMutationResult<
+    void,
+    AxiosError<TResultError>,
+    TVariables,
+    unknown
+  >;
+
   type PartiallyPartial<T, RequiredKeys extends keyof T> = Partial<
     Omit<T, RequiredKeys>
   > &
