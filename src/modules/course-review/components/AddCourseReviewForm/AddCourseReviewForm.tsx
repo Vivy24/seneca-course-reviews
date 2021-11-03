@@ -36,7 +36,7 @@ import { getAxiosError } from '@utils/api-utils';
 import { errorsToString } from '@utils/parse-utils';
 import axios from 'axios';
 import NextLink from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaBan, FaCheckCircle } from 'react-icons/fa';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
@@ -50,7 +50,6 @@ export const AddCourseReviewForm = () => {
   const slate = useEditor();
   const queryClient = useQueryClient();
   const { user } = useAuthContext();
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenProfessor,
@@ -62,15 +61,17 @@ export const AddCourseReviewForm = () => {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm<AddCourseReviewFormValues>({
     resolver: zodResolver(addCourseReviewSchema),
-    defaultValues: {
-      reviewName: user?.displayName ?? '',
-      userId: user?.uid ?? '',
-    },
   });
   const courseId = watch('courseId');
+
+  useEffect(() => {
+    setValue('reviewName', user?.displayName ?? '');
+    setValue('userId', user?.uid ?? '');
+  }, [user?.displayName, user?.uid]);
 
   const coursesQuery = useQuery({
     queryKey: 'courses',
