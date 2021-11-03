@@ -26,6 +26,7 @@ import {
 } from '@chakra-ui/react';
 import { ApiError } from '@common';
 import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
+import { useAuthContext } from '@modules/auth/context/AuthContext';
 import { AddCourseForm } from '@modules/course/components/AddCourseForm/AddCourseForm';
 import Editor from '@modules/editor/components/Editor/Editor';
 import { useEditor } from '@modules/editor/hooks/useEditor';
@@ -48,6 +49,7 @@ import {
 export const AddCourseReviewForm = () => {
   const slate = useEditor();
   const queryClient = useQueryClient();
+  const { user } = useAuthContext();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -63,7 +65,12 @@ export const AddCourseReviewForm = () => {
     formState: { errors, isSubmitSuccessful, isSubmitting },
   } = useForm<AddCourseReviewFormValues>({
     resolver: zodResolver(addCourseReviewSchema),
+    defaultValues: {
+      reviewName: user?.displayName ?? '',
+      userId: user?.uid ?? '',
+    },
   });
+  const professorIdList = watch('professorIdList');
   const courseId = watch('courseId');
 
   const coursesQuery = useQuery({
@@ -124,6 +131,16 @@ export const AddCourseReviewForm = () => {
         gridGap="5"
         alignItems="start"
       >
+        <FormControl isInvalid={Boolean(errors.reviewName)}>
+          <FormLabel>Reviewer's Name</FormLabel>
+          <Input {...register('reviewName')} />
+          {errors.reviewName && (
+            <FormErrorMessage>{errors.reviewName.message}</FormErrorMessage>
+          )}
+
+          <FormHelperText>We need your reviewer name to display</FormHelperText>
+        </FormControl>
+
         <FormControl isInvalid={Boolean(errors.courseId)}>
           <FormLabel>
             {coursesQuery.isFetching ? (
