@@ -21,7 +21,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import { AddProgramForm } from '@modules/program/components/AddProgramForm/AddProgramForm';
 import { AsyncFormLabel } from '@ui/AsyncFormLabel';
-import { MutationHandleSubmit } from '@utilities';
+import { AxiosMutation } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import { errorsToString } from '@utils/parse-utils';
 import axios from 'axios';
@@ -54,15 +54,16 @@ export function AddCourseForm() {
     },
   });
 
-  const mutation: MutationHandleSubmit = useMutation(
-    handleSubmit(async (data) => {
+  const mutation: AxiosMutation<AddCourseFormValues> = useMutation(
+    async (data) => {
       await axios.post('/api/course', data as Course_Index_PostBody);
-    }),
+    },
     {
       mutationKey: 'add-course',
       onSuccess: () => queryClient.invalidateQueries('courses'),
     }
   );
+  const onSubmit = handleSubmit((data) => mutation.mutate(data));
 
   const programsQuery = useQuery({
     queryFn: async () => {
@@ -83,7 +84,7 @@ export function AddCourseForm() {
     <>
       <Flex
         as="form"
-        onSubmit={mutation.mutate}
+        onSubmit={onSubmit}
         noValidate
         direction="column"
         gridGap="5"

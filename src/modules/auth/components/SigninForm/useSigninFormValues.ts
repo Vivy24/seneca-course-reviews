@@ -1,7 +1,7 @@
 import { Controllers } from '@common';
 import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import { AuthApi } from '@modules/auth/api/auth-api';
-import { MutationHandleSubmit } from '@utilities';
+import { AxiosMutation } from '@utilities';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { signinFormSchema, SigninFormValues } from './signin-form-schema';
@@ -26,17 +26,20 @@ export const useSigninFormValues = () => {
     },
   };
 
-  const submitMutation: MutationHandleSubmit = useMutation(
-    form.handleSubmit(async (data) => {
+  const submitMutation: AxiosMutation<SigninFormValues> = useMutation(
+    async (data) => {
       await AuthApi.signinByPassword(data).catch((error) => {
         throw new Error(AuthApi.getAuthErrorMessage(error));
       });
-    })
+    }
   );
+
+  const onSubmit = form.handleSubmit((data) => submitMutation.mutate(data));
 
   return {
     form,
     controllers,
+    onSubmit,
     submitMutation,
   };
 };

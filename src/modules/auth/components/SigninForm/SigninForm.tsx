@@ -10,10 +10,10 @@ import React from 'react';
 import { useSigninFormValues } from './useSigninFormValues';
 
 export const SigninForm = () => {
-  const { controllers, form, submitMutation } = useSigninFormValues();
+  const { controllers, form, onSubmit, submitMutation } = useSigninFormValues();
 
   return (
-    <Form onSubmit={submitMutation.mutate}>
+    <Form onSubmit={onSubmit}>
       <FormGroup
         id="user-email"
         label="Email"

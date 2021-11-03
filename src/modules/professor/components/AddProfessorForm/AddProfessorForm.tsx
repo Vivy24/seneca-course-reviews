@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
 import FieldRequiredSymbol from '@ui/FieldRequiredSymbol';
-import { MutationHandleSubmit } from '@utilities';
+import { AxiosMutation } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';
 import React from 'react';
@@ -41,24 +41,25 @@ export const AddProfessorForm = () => {
     },
   });
 
-  const submitMutation: MutationHandleSubmit = useMutation(
-    handleSubmit(async (data) => {
+  const submitMutation: AxiosMutation<AddProfessorFormValues> = useMutation(
+    async (data) => {
       await axios.post<Professor_Index_PostData>(
         '/api/professor',
         data as Professor_Index_PostBody
       );
-    }),
+    },
     {
       onSuccess: () => {
         queryClient.invalidateQueries('professors');
       },
     }
   );
+  const onSubmit = handleSubmit((data) => submitMutation.mutate(data));
 
   return (
     <Flex
       as="form"
-      onSubmit={submitMutation.mutate}
+      onSubmit={onSubmit}
       noValidate
       direction="column"
       gridGap="5"

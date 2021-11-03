@@ -12,7 +12,7 @@ import FieldRequiredSymbol from '@ui/FieldRequiredSymbol';
 import { FormSubmitButton } from '@ui/FormSubmitButton';
 import { FormSubmitErrorText } from '@ui/FormSubmitErrorText';
 import { FormSubmitSuccessText } from '@ui/FormSubmitSuccessText';
-import { MutationHandleSubmit } from '@utilities';
+import { AxiosMutation } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';
 import React from 'react';
@@ -37,20 +37,21 @@ export const AddProgramForm = () => {
     },
   });
 
-  const mutation: MutationHandleSubmit = useMutation(
-    handleSubmit(async (data) => {
+  const mutation: AxiosMutation<AddProgramFormValues> = useMutation(
+    async (data) => {
       await axios.post('/api/program', data as Program_Index_PostBody);
-    }),
+    },
     {
       mutationKey: 'add-program',
       onSuccess: () => queryClient.invalidateQueries('programs'),
     }
   );
+  const onSubmit = handleSubmit((data) => mutation.mutate(data));
 
   return (
     <Flex
       as="form"
-      onSubmit={mutation.mutate}
+      onSubmit={onSubmit}
       noValidate
       direction="column"
       gridGap="5"

@@ -31,7 +31,7 @@ import { AddCourseForm } from '@modules/course/components/AddCourseForm/AddCours
 import Editor from '@modules/editor/components/Editor/Editor';
 import { useEditor } from '@modules/editor/hooks/useEditor';
 import { AddProfessorForm } from '@modules/professor/components/AddProfessorForm/AddProfessorForm';
-import { MutationHandleSubmit } from '@utilities';
+import { AxiosMutation } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import { errorsToString } from '@utils/parse-utils';
 import axios from 'axios';
@@ -105,26 +105,27 @@ export const AddCourseReviewForm = () => {
     onError: (error: ApiError) => getAxiosError(error),
   });
 
-  const submitMutation: MutationHandleSubmit = useMutation(
-    handleSubmit(async (data) => {
+  const submitMutation: AxiosMutation<AddCourseReviewFormValues> = useMutation(
+    async (data) => {
       const newReview: CourseReviews_Index_PostBody = {
         ...data,
         body: slate.value,
       };
 
       await axios.post('/api/course-review', newReview);
-    }),
+    },
     {
       onSuccess: function () {
         queryClient.invalidateQueries(['course-reviews', courseId]);
       },
     }
   );
+  const onSubmit = handleSubmit((data) => submitMutation.mutate(data));
 
   return (
     <>
       <Flex
-        onSubmit={submitMutation.mutate}
+        onSubmit={onSubmit}
         as="form"
         noValidate
         direction="column"

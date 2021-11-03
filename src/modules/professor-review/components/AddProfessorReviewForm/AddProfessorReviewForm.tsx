@@ -30,7 +30,7 @@ import { AddCourseForm } from '@modules/course/components/AddCourseForm/AddCours
 import Editor from '@modules/editor/components/Editor/Editor';
 import { useEditor } from '@modules/editor/hooks/useEditor';
 import { AddProfessorForm } from '@modules/professor/components/AddProfessorForm/AddProfessorForm';
-import { MutationHandleSubmit } from '@utilities';
+import { AxiosMutation } from '@utilities';
 import { getAxiosError } from '@utils/api-utils';
 import axios from 'axios';
 import NextLink from 'next/link';
@@ -96,8 +96,8 @@ export const AddProfessorReviewForm = () => {
     onError: (error: ApiError) => getAxiosError(error),
   });
 
-  const submitMutation: MutationHandleSubmit = useMutation(
-    handleSubmit(async (data) => {
+  const submitMutation: AxiosMutation<AddProfessorReviewFormValues> =
+    useMutation(async (data) => {
       const newReview: ProfessorReview_Index_PostBody = {
         ...data,
         _createdAt: new Date().toISOString(),
@@ -105,13 +105,13 @@ export const AddProfessorReviewForm = () => {
       };
 
       await axios.post('/api/professor-review', newReview);
-    })
-  );
+    });
+  const onSubmit = handleSubmit((data) => submitMutation.mutate(data));
 
   return (
     <>
       <Flex
-        onSubmit={submitMutation.mutate}
+        onSubmit={onSubmit}
         as="form"
         noValidate
         direction="column"
